@@ -1,6 +1,6 @@
 function init() {
     console.log("obo");
-    const queryUrl = "http://ergast.com/api/f1/drivers.json?"
+    const queryUrl = "https://ergast.com/api/f1/drivers.json?"
 
     d3.json(queryUrl).then(function (data) {
         console.log(data);
