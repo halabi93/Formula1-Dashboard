@@ -1,7 +1,7 @@
 function init() {
     console.log("obo");
     // var dropdownMenu = d3.select("#selDataset");
-      d3.json("C:/Users/emera/Documents/GitHub/Project3-Formula1/Resources/samples.json").then(data => {
+      d3.json("../../Resources/samples.json").then(data => {
             // console.log(data);
             console.log("bob");
           // Fill out dropdown menu
