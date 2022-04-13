@@ -3,8 +3,6 @@ let dropdownMenu = d3.select("#selDataset");
 
 function init() {
     
-
-
     d3.json(queryUrl).then(function (data) {
         // console.log(data);
         drivers2022 = data.MRData.DriverTable.Drivers;
@@ -60,8 +58,6 @@ function optionChanged(value) {
 
 };
 
-
-
         //   charts(sampleID[0]);
         // //   gauge(sampleID[0]);
       // };
@@ -101,10 +97,7 @@ function optionChanged(value) {
       
         //   let barConfig = {responsive: true}
       
-        //   Plotly.newPlot("bar", barChart, barLayout, barConfig);
-      
-          
-      
+        //   Plotly.newPlot("bar", barChart, barLayout, barConfig);      
         
     // )};
 

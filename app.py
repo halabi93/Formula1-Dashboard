@@ -35,15 +35,19 @@ def scrape():
 
 @app.route('/circuit', methods=['GET', 'POST'])
 def circuit_map():
-    # if request.method == 'POST':
-        # do stuff when the form is submitted
-
-        # redirect to end the POST handling
-        # the redirect can be to the same route or somewhere else
-        # return redirect(url_for('index'))
-
+    markers=[
+            {
+            'lat':0,
+            'lon':0,
+            'popup':'This is the middle of the map.'
+            }
+        ]
     # show the form, it wasn't submitted
-    return render_template('circuit.html')
+    return render_template('circuit.html', markers = markers)
+
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
