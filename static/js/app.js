@@ -1,9 +1,22 @@
 function init() {
     console.log("obo");
+    const queryUrl = "https://ergast.com/api/f1/drivers.json?"
+
+    d3.json(queryUrl).then(function (data) {
+        console.log(data);
+        console.log("bob");
+      });
+
+
+
     // var dropdownMenu = d3.select("#selDataset");
+<<<<<<< HEAD
       d3.json("../../Resources/samples.json").then(data => {
+=======
+    //   d3.json("C:/Users/emera/Documents/GitHub/Project3-Formula1/Resources/samples.json").then(data => {
+>>>>>>> d2005c7b95b0acd57788f332ddf11d8a3a7e2993
             // console.log(data);
-            console.log("bob");
+           
           // Fill out dropdown menu
         //   sampleID = data.names;
         //   //for each loop... for each i in the list found in data.names (aka sampleID), append the value (ex: 940), as text, to the bottom of the "options" in the dropdown list
@@ -13,7 +26,7 @@ function init() {
         // //   demographics(sampleID[0]);
         //   charts(sampleID[0]);
         // //   gauge(sampleID[0]);
-      })};
+      };
 
     //   function charts (userInput){
     //     d3.csv("../../Resources/F1_Constructor_Standings.csv").then(data => {
