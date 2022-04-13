@@ -34,6 +34,29 @@
                 <p><a href="{{ url_for('circuit_map') }}">The Map</a></p>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-3">
+              <div class="well" style="min-width: 225px;">
+                <h5>Driver Name:</h5>
+                <select id="selDataset" onchange="optionChanged(this.value)"></select>
+      
+              </div>
+              <div class="panel panel-primary" style="min-width: 225px;">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Driver Info</h3>
+                </div>
+                <div id="sample-metadata" class="panel-body">
+      <!-- metadata here -->
+                </div>
+              </div>
+            </div>
+        </div>
+
+
+
+
+
   <!-- The div that holds our map -->
   <div id="map"></div>
 

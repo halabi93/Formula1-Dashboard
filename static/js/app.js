@@ -1,13 +1,22 @@
 function init() {
+    let dropdownMenu = d3.select("#selDataset");
     console.log("obo");
-    const queryUrl = "https://ergast.com/api/f1/drivers.json?"
+    const queryUrl = "https://ergast.com/api/f1/2022/drivers.json?"
 
     d3.json(queryUrl).then(function (data) {
         console.log(data);
         console.log("bob");
+        drivers2022 = data.MRData.DriverTable.Drivers;
+        console.log(drivers2022)
+
+        drivers2022.forEach((i)=>{dropdownMenu.append("option").text(i).property("value");
+      })
+
+
+
+
       });
-
-
+      // 
 
     // var dropdownMenu = d3.select("#selDataset");
 <<<<<<< HEAD
