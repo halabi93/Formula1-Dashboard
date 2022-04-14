@@ -1,14 +1,17 @@
 
 
-function getCircuitURL() {
-startYear = document.getElementById("cyear1").submit;
+// function getCircuitURL() {
+// startYear = document.getElementById("cyear1").submit;
 
-const circuitURL = "http://ergast.com/api/f1/" + startYear + "/circuits.json";
-console.log(startYear);
+// const circuitURL = "http://ergast.com/api/f1/" + startYear + "/circuits.json";
+// console.log(startYear);
+
+const circuitURL = "http://ergast.com/api/f1/circuits.json";
+
+// createMarkers(circuitURL)
+
+// };
 createMarkers(circuitURL)
-// const circuitURL = "http://ergast.com/api/f1/circuits.json";
-};
-
 
 function createMarkers(circuitURL){
   d3.json(circuitURL).then(function (data) {
