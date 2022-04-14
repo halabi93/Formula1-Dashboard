@@ -39,8 +39,7 @@
             <div class="col-md-3">
               <div class="well" style="min-width: 225px;">
                 <h5>Driver Name:</h5>
-                <select id="selDataset" onchange="optionChanged(this.value)"></select>
-      
+                <select id="selDataset" onchange="optionChanged(this.value)"></select>      
               </div>
               <div class="panel panel-primary" style="min-width: 225px;">
                 <div class="panel-heading">
@@ -53,16 +52,39 @@
             </div>
         </div>
 
-
-
-
-        <form action="../static/js/logic.js">
+        <form>
             <label for="fname">Start Year:</label>
-            <input type="text" id="cyear1" name="cyear1"><br><br>
+            <input type="number" id="cyear1" name="cyear1"><br><br>
+            <button type="button" name="button" onclick="getCircuitURL()"></button>           
+                Submit
+            </button>
+
+
             <!-- <label for="lname">Last name:</label>
             <input type="text" id="lname" name="lname"><br><br> -->
-            <input type="submit" onclick="getCircuitURL()" value="Submit">
+            <!-- <input type="submit" onclick="getCircuitURL(document.getElementById('cyear1').value)"> -->
           </form>
+
+          <form>
+            <div>
+              <!-- <label for="example">Let's submit some text</label>
+              <input id="example" type="text" name="text">
+              <script>
+
+              </script> -->
+            </div>
+            <div>
+              <input type="submit" value="Send">
+            </div>
+          </form>
+
+          <div id="slider" style="top: 0px; right: 1px; margin: 10px 25px;"></div>
+          <div style="margin-right: auto; margin-left: auto; width: 90%; margin-bottom: 10px; text-align: center;">
+              <input type="number" min='1950' max='2021' id="input-number-min">
+              <input type="number" min='1951' max='2022' id="input-number-max">
+          </div>
+
+
   <!-- The div that holds our map -->
   <div id="map"></div>
 

@@ -1,17 +1,37 @@
+var slidervar = document.getElementById('slider');
+noUiSlider.create(slidervar, {
+    connect: true,
+    start: [ 1, 35676000 ],
+    range: {
+        min: 1950,
+        max: 2022
+    }
+});
+document.getElementById('input-number-min').setAttribute("value", 1950);
+document.getElementById('input-number-max').setAttribute("value", 2022);
 
+var inputNumberMin = document.getElementById('input-number-min');
+var inputNumberMax = document.getElementById('input-number-max');
+inputNumberMin.addEventListener('change', function(){
+    slidervar.noUiSlider.set([this.value, null]);
+});
+inputNumberMax.addEventListener('change', function(){
+    slidervar.noUiSlider.set([null, this.value]);
+});
 
-// function getCircuitURL() {
-// startYear = document.getElementById("cyear1").submit;
+// document.getElementById("cyear1").value = "1950";
+startYear = "1950";
 
-// const circuitURL = "http://ergast.com/api/f1/" + startYear + "/circuits.json";
-// console.log(startYear);
+function getCircuitURL() {
+  startYear = document.getElementById("cyear1").value;
+  console.log(startYear);
+  const circuitURL = "http://ergast.com/api/f1/" + startYear + "/circuits.json";
+  console.log(circuitURL);
+  createMarkers(circuitURL);
+};
 
-const circuitURL = "http://ergast.com/api/f1/circuits.json";
-
+// const circuitURL = "http://ergast.com/api/f1/circuits.json";
 // createMarkers(circuitURL)
-
-// };
-createMarkers(circuitURL)
 
 function createMarkers(circuitURL){
   d3.json(circuitURL).then(function (data) {
