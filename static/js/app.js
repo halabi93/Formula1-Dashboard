@@ -1,5 +1,6 @@
 const queryUrl = "https://ergast.com/api/f1/2022/drivers.json?"
 let dropdownMenu = d3.select("#selDataset");
+let yearMenu = d3.select("#selYear");
 
 function init() {
     
@@ -42,8 +43,12 @@ function demographics(userInput) {
       Object.entries(firstID).forEach(([key, value])=>{metaBox.append("option").text(`${key}: ${value}`);
       })
 })};
-      
-  
+
+function getYear(value)
+
+
+
+
 
 // This function is called when a dropdown menu item is selected
 function optionChanged(value) {
@@ -53,52 +58,7 @@ function optionChanged(value) {
   metaBox.selectAll("*").remove();
 
   demographics(value);
-  // charts(value);
-  // gauge(value);
-
 };
 
-        //   charts(sampleID[0]);
-        // //   gauge(sampleID[0]);
-      // };
-
-    //   function charts (userInput){
-    //     d3.csv("../../Resources/F1_Constructor_Standings.csv").then(data => {
-        //     console.log(data);
-        //   chartSamples = data.samples;
-        //   selected = chartSamples.filter((record)=>record.id == userInput);
-        //   firstID = selected[0];
-      
-        //   //BAR CHART
-        //   let barChart = [{
-        //       type: "bar",
-        //       x: firstID.sample_values.slice(0,10).reverse(),
-        //       y: firstID.otu_ids.map(j=>`otu ${j}`).slice(0,10).reverse(),
-        //       text: firstID.otu_labels.slice(0,10).reverse(),
-        //       orientation: 'h'
-        //   }];
-      
-        //   let barLayout = {
-        //     title: { text: `Top 10 OTUs for Sample ${userInput}` },
-        //     margin: {
-        //       t: 23,
-        //     },
-        //     xaxis: {
-        //       title: {
-        //         text: "Read Counts"
-        //       }
-        //     },
-        //     yaxis: {
-        //       title: {
-        //         text: "OTU IDs"
-        //       }
-        //     }
-        //   };
-      
-        //   let barConfig = {responsive: true}
-      
-        //   Plotly.newPlot("bar", barChart, barLayout, barConfig);      
-        
-    // )};
 
     init();

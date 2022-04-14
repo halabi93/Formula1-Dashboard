@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Formula 1 Dashboard</title>
+              
+      <!-- Leaflet CSS -->
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin="" />
+
+      <!-- Our CSS -->
+      <link href="../static/css/style.css" rel="stylesheet" type="text/css">
+
+      <!-- Bootsrap CSS -->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+      <!-- Slider -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.5.1/nouislider.min.css"/>
+  </head>
+
+  <body>
+    <!-- First Row -->
+    <div class="row h-auto" id="headerSection">
+      <div class="wrapper col overflow-auto h-auto"> 
+        <h2 class = "text-center">Formula 1 Information Dashboard</h2>
+      </div>
+    </div>
+
+    <!-- Second Row -->
+    <div class="row h-auto" id = "dashboardSection">
+      <div class="wrapper col overflow-auto h-100"> 
+            <div id="dashboardContents" class="dashboard">
+              <div class="articles col-md-3 float-left">
+                <p class = "text-center"><a href = "https://www.formula1.com/">Formula 1</a> Featured Article</p>                  
+                <a href="{{ formula1.news_link}}"><p class = "text-center">{{ formula1.news_title }}</p> </a>
+              </div>
+              <div class="topTweets col-md-3">
+                <p>Some tweets</p>
+              </div>
+            </div>       
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="row h-100" id="section">
+            <div class="wrapper col overflow-auto bg-light h-100"> 
+               
+                <!-- <a href="circuit.html">The Map</a> -->
+                <p><a href="{{ url_for('circuit_map') }}">The Map</a></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+              <div class="well" style="min-width: 225px;">
+                <h5>Driver Name:</h5>
+                <select id="selDataset" onchange="optionChanged(this.value)"></select>      
+              </div>
+              <div class="panel panel-primary" style="min-width: 225px;">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Driver Info</h3>
+                </div>
+                <div id="sample-metadata" class="panel-body">
+      <!-- metadata here -->
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <form>
+            <label for="fname">Start Year:</label>
+            <input type="number" id="cyear1" name="cyear1"><br><br>
+            <button type="button" name="button" onclick="getCircuitURL()"></button>           
+                Submit
+            </button>
+
+    <!-- Third Row - Update News Button -->
+    <div class="row h-auto">
+      <p><a class="btn btn-lg" href="/scrape" role="button">Update Current News</a></p>
+    </div>
+
+
+            <!-- <label for="lname">Last name:</label>
+            <input type="text" id="lname" name="lname"><br><br> -->
+            <!-- <input type="submit" onclick="getCircuitURL(document.getElementById('cyear1').value)"> -->
+          </form>
+
+          <form>
+            <div>
+              <!-- <label for="example">Let's submit some text</label>
+              <input id="example" type="text" name="text">
+              <script>
+
+              </script> -->
+            </div>
+            <div>
+              <input type="submit" value="Send">
+            </div>
+          </form>
+
+          <div id="slider" style="top: 0px; right: 1px; margin: 10px 25px;"></div>
+          <div style="margin-right: auto; margin-left: auto; width: 90%; margin-bottom: 10px; text-align: center;">
+              <input type="number" min='1950' max='2021' id="input-number-min">
+              <input type="number" min='1951' max='2022' id="input-number-max">
+          </div>
+
+
+  <!-- The div that holds our map -->
+  <div id="map"></div>
+
+
+        <!-- Leaflet JS -->
+        <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+            integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+            crossorigin=""></script>
+
+        <!-- D3 Library JavaScript -->
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+
+        <!-- Chroma.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/1.3.4/chroma.min.js"></script>
+
+        <!-- API key -->
+        <script type="text/javascript" src="../static/js/config.js"></script>
+
+        <!-- Our JavaScript -->
+        <script type="text/javascript" src="../static/js/logic.js"></script>
+        <script src="../static/js/app.js"></script>
+
+        <!-- Slider -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.5.1/nouislider.min.js"></script>
+
+        <!-- Bootstrap -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    </body>
+</html>

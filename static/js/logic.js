@@ -1,37 +1,37 @@
-let slidervar = document.getElementById('slider');
-noUiSlider.create(slidervar, {
-    connect: true,
-    start: [ 1, 35676000 ],
-    range: {
-        min: 1950,
-        max: 2022
-    }
-});
-document.getElementById('input-number-min').setAttribute("value", 1950);
-document.getElementById('input-number-max').setAttribute("value", 2022);
+// let slidervar = document.getElementById('slider');
+// noUiSlider.create(slidervar, {
+//     connect: true,
+//     start: [ 1, 35676000 ],
+//     range: {
+//         min: 1950,
+//         max: 2022
+//     }
+// });
+// document.getElementById('input-number-min').setAttribute("value", 1950);
+// document.getElementById('input-number-max').setAttribute("value", 2022);
 
-let inputNumberMin = document.getElementById('input-number-min');
-let inputNumberMax = document.getElementById('input-number-max');
-inputNumberMin.addEventListener('change', function(){
-    slidervar.noUiSlider.set([this.value, null]);
-});
-inputNumberMax.addEventListener('change', function(){
-    slidervar.noUiSlider.set([null, this.value]);
-});
+// let inputNumberMin = document.getElementById('input-number-min');
+// let inputNumberMax = document.getElementById('input-number-max');
+// inputNumberMin.addEventListener('change', function(){
+//     slidervar.noUiSlider.set([this.value, null]);
+// });
+// inputNumberMax.addEventListener('change', function(){
+//     slidervar.noUiSlider.set([null, this.value]);
+// });
 
-slidervar.noUiSlider.on('update', function( values, handle ) {
-  //handle = 0 if min-slider is moved and handle = 1 if max slider is moved
-  if (handle==0){
-      document.getElementById('input-number-min').value = values[0];
-  } else {
-      document.getElementById('input-number-max').value = values[1];
-  }
+// slidervar.noUiSlider.on('update', function( values, handle ) {
+//   //handle = 0 if min-slider is moved and handle = 1 if max slider is moved
+//   if (handle==0){
+//       document.getElementById('input-number-min').value = values[0];
+//   } else {
+//       document.getElementById('input-number-max').value = values[1];
+//   }
 
-})
+// })
 
-startYear = document.getElementById('input-number-min').value;
-endYear = document.getElementById('input-number-max').value;
-console.log(startYear);
+// startYear = document.getElementById('input-number-min').value;
+// endYear = document.getElementById('input-number-max').value;
+// console.log(startYear);
 
 
 
