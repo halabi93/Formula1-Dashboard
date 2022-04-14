@@ -1,23 +1,35 @@
-const circuitURL = "http://ergast.com/api/f1/circuits.json";
-  
-d3.json(circuitURL).then(function (data) {
-  // console.log(data)
-  circuits = data.MRData.CircuitTable.Circuits
-  console.log(circuits[0].Location.long);
-  console.log(circuits[0].Location.lat);
 
-  circuitMarkers = []
-  for (let i in circuits) {
-    circuit = circuits[i]
-    // Leaflet uses lat-lon
-    circuitMarkers.push(
-      L.marker([circuit.Location.lat, circuit.Location.long]).bindPopup(`<h2>${circuit.circuitName}:<h2><br>${circuit.Location.locality}, ${circuit.Location.country}`)
-    );
-  };
-    let circuitLayer = L.layerGroup(circuitMarkers);
 
-    createMap(circuitLayer)
-});
+function getCircuitURL() {
+startYear = document.getElementById("cyear1").submit;
+
+const circuitURL = "http://ergast.com/api/f1/" + startYear + "/circuits.json";
+console.log(startYear);
+createMarkers(circuitURL)
+// const circuitURL = "http://ergast.com/api/f1/circuits.json";
+};
+
+
+function createMarkers(circuitURL){
+  d3.json(circuitURL).then(function (data) {
+    // console.log(data)
+    circuits = data.MRData.CircuitTable.Circuits
+    console.log(circuits[0].Location.lat);
+
+    circuitMarkers = []
+    for (let i in circuits) {
+      circuit = circuits[i]
+      // Leaflet uses lat-lon
+      circuitMarkers.push(
+        L.marker([circuit.Location.lat, circuit.Location.long]).bindPopup(`<h3>${circuit.circuitName}:<h3>${circuit.Location.locality}, ${circuit.Location.country}`)
+      );
+    };
+      let circuitLayer = L.layerGroup(circuitMarkers);
+
+      createMap(circuitLayer)
+  });
+};
+
 
 function createMap(circuitLayer) {
 
@@ -61,7 +73,7 @@ function createMap(circuitLayer) {
       37.09, -95.71
     ],
     zoom: 5,
-    layers: [googleSat]
+    layers: [googleSat, circuitLayer]
   });
 
   L.control.layers(baseMaps, overlayMaps).addTo(myMap); 
