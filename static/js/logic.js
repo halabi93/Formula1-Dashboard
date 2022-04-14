@@ -19,6 +19,21 @@ inputNumberMax.addEventListener('change', function(){
     slidervar.noUiSlider.set([null, this.value]);
 });
 
+slidervar.noUiSlider.on('update', function( values, handle ) {
+  //handle = 0 if min-slider is moved and handle = 1 if max slider is moved
+  if (handle==0){
+      document.getElementById('input-number-min').value = values[0];
+  } else {
+      document.getElementById('input-number-max').value = values[1];
+  }
+//we will definitely do more here...wait
+})
+
+rangeMin = document.getElementById('input-number-min').value;
+rangeMax = document.getElementById('input-number-max').value;
+
+
+
 // document.getElementById("cyear1").value = "1950";
 startYear = "1950";
 
