@@ -84,15 +84,15 @@
         </div>
   </div>
 
-  <div class="bg-light" id = "Visualizations">
-    <div class="container bg-light">
-        <select id="selYear" onchange="getYear(this.value)"></select><h3 class = "text-center">Season Information</h3>
+  <div id = "Visualizations">
+    <div class="container">
+        <select id="selYear" onchange="getYear(this.value)"></select><h3 class = "text-center" id = "season-info">Season Information</h3>
         <hr>
         <div class="container">
             <div class="row">
 
                 <!-- Demographics DropDown -->
-                <div class="col-sm-12 col-md-6 graph">
+                <div class="col-sm-12 col-md-5 graph bg-light">
                     <h4>Driver Demographics</h4>
                     <div class="well" style="min-width: 225px;">
                         <h5>Driver Name:</h5>
@@ -108,15 +108,15 @@
                 </div>
 
                 <!-- Standings...barchart? -->
-                <div class="col-sm-12 col-md-6 graph">
+                <div class="col-sm-12 col-md-5 graph bg-light">
                     <div id="bar"></div>
                 </div>
 
-                <div class="col-sm-12 col-md-6 graph">
+                <div class="col-sm-12 col-md-5 graph bg-light">
                     <a href="cloudiness.html" class="text-decoration-none"><h4 class="text-center">vs. Cloudiness</h4></a>                
                     <a href="cloudiness.html"><img src="assets/images/CloudVsLat.svg" class="img-fluid" title="Cloudiness vs Latitude" alt="Cloudiness vs Latitude"></a>
                 </div>
-                <div class="col-sm-12 col-md-6 graph">
+                <div class="col-sm-12 col-md-5 graph bg-light">
                     <a href="windspeed.html" class="text-decoration-none"><h4 class="text-center">vs. Latitude</h4></a>                 
                     <a href="windspeed.html"><img src="assets/images/WSpdVsLat.svg" class="img-fluid" title="Wind Speed vs Latitude" alt="Wind Speed vs Latitude"></a>
                 </div>

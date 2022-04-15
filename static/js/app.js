@@ -31,6 +31,8 @@ function init() {
   yearList.forEach((y)=>{yearMenu.append("option").text(y).property("value").code;  
   }); 
 
+  document.getElementById('season-info').innerHTML = `${yearList[0]} Season Information`;
+
   // Call on the following functions to fill out visuals for index.html
   driverList(yearList[0]);
   driverStandings(yearList[0]);
@@ -146,6 +148,8 @@ function driverStandings(year){
 // This function runs when the user changes the year - note: no changes are made to "value" in this function
 function getYear(value){
   console.log("get year");
+
+  document.getElementById('season-info').innerHTML = `${value} Season Information`;
 
   // empty the previous driver list
   document.getElementById('selDataset').options.length = 0;

@@ -38,6 +38,9 @@ html {
 
 .graph {
   border: 2px solid black;
+  min-height: 300pt;
+  margin: 2%;
+  border-radius: 2%
 }
 
 h3 {
