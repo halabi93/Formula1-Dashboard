@@ -1,45 +1,81 @@
 let queryAPI = "https://ergast.com/api/f1/"
 let queryDriver = "drivers.json?"
 
-
-// Set up the year selection
-yearList = [];
-currentYear = new Date().getFullYear();
-currentYear = Number(currentYear);
-firstDataYear = Number(1950);
-
-for (let y = currentYear; y >= firstDataYear; --y) {
-  yearList.push(y);
-};
-
-console.log("before init");
-
-// FOR REFERENCE
-// year = document.getElementById('selYear').value;
-// driver = document.getElementById('selDataset').value;
-
-
 let dropdownMenu = d3.select("#selDataset");
 let yearMenu = d3.select("#selYear");
 
-//This function runs when the page is loaded
-function init() {
-    console.log("init");
-    yearList.forEach((y)=>{yearMenu.append("option").text(y).property("value").code;  
-    }); 
+// The earliest year in the dataset, based on researching the API
+let firstDataYear = Number(1950);
 
-    driverList(yearList[0]);
-    driverStandings(yearList[0]);
+console.log("before init");
+
+// FOR REFERENCE:
+// year = document.getElementById('selYear').value;
+// driver = document.getElementById('selDataset').value;
+
+//This function runs when the page is loaded, fills out the year drop down, and makes function calls to fill out drop downs and run visuals
+function init() {
+  console.log("init");
+
+  // Set up the year selection
+  let yearList = [];
+  let currentYear = new Date().getFullYear();
+  currentYear = Number(currentYear);  // Convert to number just to be safe
+  
+  // Add all years to a list
+  for (let y = currentYear; y >= firstDataYear; --y) {
+    yearList.push(y);
+  };
+
+  // Turn list items into drop down options
+  yearList.forEach((y)=>{yearMenu.append("option").text(y).property("value").code;  
+  }); 
+
+  // Call on the following functions to fill out visuals for index.html
+  driverList(yearList[0]);
+  driverStandings(yearList[0]);
+};
+
+// This function finds the driver list for a single given year
+function driverList(year){
+  console.log("driverList");
+
+  // Use the year to create the query
+  queryUrl = queryAPI + year + "/" + queryDriver;
+
+  // Create Driver list
+  d3.json(queryUrl).then(function (data) {
+
+    // Navigate to the section of the JSON that has the driver information
+    driversYear = data.MRData.DriverTable.Drivers;
+    
+    // Create the driver drop down menu
+    let driversYear_list = [];
+
+    for (let i in driversYear) {
+      driversYear_list.push(driversYear[i].givenName + " " + driversYear[i].familyName);
     };
+
+    driversYear_list.forEach((driver)=>{dropdownMenu.append("option").text(driver).property("value").code;  
+    });  
+
+    // Run the demographics function with the first driver in the list as default
+    demographics(driversYear_list[0]);
+  })
+
+};
 
 // This function fills out the Driver Demographics Section
 function demographics(userInput) {
+
+  // Find the current year selected and create the query url
   userYear = document.getElementById('selYear').value
   let currentQuery = queryAPI + userYear + "/" + queryDriver;
 
+  // Get the query data
   d3.json(currentQuery).then(function (data) {
 
-      // Match the userInput to the json 
+      // Match the userInput to a json entry
       driversYear = data.MRData.DriverTable.Drivers;          
       selected = driversYear.filter((record)=>(record.givenName + " " + record.familyName) == userInput);
 
@@ -55,7 +91,6 @@ function demographics(userInput) {
 // WIP
 function driverStandings(year){
   standingsQuery = "http://ergast.com/api/f1/" + year + "/driverStandings.json";
-  console.log(standingsQuery);
   d3.json(standingsQuery).then(function (data) {
     console.log(data);
     let driverPositions = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
@@ -108,44 +143,23 @@ function driverStandings(year){
   // Plotly.newPlot("bar", barChart, barLayout, barConfig);
 };
 
-
-// This function finds the driver list for a single given year
-function driverList(year){
-  console.log("driverList");
-
-  queryUrl = queryAPI + year + "/" + queryDriver;
-  console.log(queryUrl);
-  // Create Driver list
-  d3.json(queryUrl).then(function (data) {
-    // console.log(data);
-    driversYear = data.MRData.DriverTable.Drivers;
-    
-    console.log(driversYear);
-    let driversYear_list = [];
-    for (let i in driversYear) {
-      driversYear_list.push(driversYear[i].givenName + " " + driversYear[i].familyName);
-    };
-    driversYear_list.forEach((driver)=>{dropdownMenu.append("option").text(driver).property("value").code;  
-    });  
-    demographics(driversYear_list[0]);
-  })
-
-};
-
-// This function runs when the user changes the year
+// This function runs when the user changes the year - note: no changes are made to "value" in this function
 function getYear(value){
   console.log("get year");
 
+  // empty the previous driver list
   document.getElementById('selDataset').options.length = 0;
+
   //empty the "Demographic Info" box
   let metaBox = d3.select("#driver-metadata");
   metaBox.selectAll("*").remove();
 
+  // Run functions with the passed "value"
   driverList(value);
   driverStandings(value);
 };
 
-// This function is called when a dropdown menu item is selected
+// This function is called when a dropdown menu item is selected - note: no changes are made to "value" in this function
 function optionChanged(value) {
   console.log("option changed")
 
@@ -153,8 +167,9 @@ function optionChanged(value) {
   let metaBox = d3.select("#driver-metadata");
   metaBox.selectAll("*").remove();
 
+  // Run functions with the passed "value"
   demographics(value);
 };
 
-//run when page is initialized
+// This will run when index.html is initialized
 init();
