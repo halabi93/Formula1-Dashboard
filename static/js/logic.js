@@ -45,7 +45,6 @@ function getCircuitURLs() {
 
   console.log(startYear);
 
-
   createMarkers(circuitURL);
 };
 

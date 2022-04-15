@@ -23,7 +23,7 @@ function init() {
   currentYear = Number(currentYear);  // Convert to number just to be safe
   
   // Add all years to a list
-  for (let y = currentYear; y >= firstDataYear; --y) {
+  for (let y = currentYear; y >= firstDataYear; y--) {
     yearList.push(y);
   };
 
@@ -90,59 +90,88 @@ function demographics(userInput) {
       })
 })};
 
-// WIP
+// This function creates a bar chart with the Driver Standings for the user chosen year
 function driverStandings(year){
-  standingsQuery = "http://ergast.com/api/f1/" + year + "/driverStandings.json";
+  console.log("driverStandings")
+
+  standingsQuery = queryAPI + year + "/driverStandings.json";
+
   d3.json(standingsQuery).then(function (data) {
-    console.log(data);
+    // console.log(data);
     let driverPositions = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
-    console.log(driverPositions);
+    // console.log(driverPositions);
     console.log(driverPositions[0].points);
   
     let standings_list = [];
+
+    let seasonPoints = [];
+    let fullName = [];
+    let wins = [];
+    let constructor = [];
+    console.log(seasonPoints);
+
     for(let d in driverPositions){
-      console.log(driverPositions[d])
-      let points = driverPositions[d].points;
-      let givenName = driverPositions[d].Driver.givenName;
-      let familyName = driverPositions[d].Driver.familyName;
-      let wins = driverPositions[d].wins;
-      let constructor = driverPositions[d].Constructors[0].name;
+      console.log(driverPositions[d].points)
+      seasonPoints.push(parseInt(driverPositions[d].points));
 
-      console.log(points)
-      standings_list.push({"Points": points, "Name": givenName + " " + familyName, "Wins": wins, "Constructor": constructor 
-      });
-      console.log(standings_list)   
+      fullName.push(driverPositions[d].Driver.givenName + " " + driverPositions[d].Driver.familyName);
+      wins.push(driverPositions[d].wins);
+      constructor.push(driverPositions[d].Constructors[0].name);    
+      // break;
     };
-})
-  // //BAR CHART
-  // let barChart = [{
-  //     type: "bar",
-  //     x: driverPositions.points.slice(0,10).reverse(),
-  //     y: driverPositions.Driver.familyName.map(j=>`otu ${j}`).slice(0,10).reverse(),
-  //     text: `Wins: ${driverPositions.wins.slice(0,10).reverse()}`,
-  //     orientation: 'h'
-  // }];
 
-  // let barLayout = {
-  //   title: { text: `Driver Standings for ${year}` },
-  //   margin: {
-  //     t: 23,
-  //   },
-  //   xaxis: {
-  //     title: {
-  //       text: "Points"
-  //     }
-  //   },
-  //   yaxis: {
-  //     title: {
-  //       text: "Driver"
-  //     }
-  //   }
-  // };
+    // //BAR CHART
+    let barChart = [{
+        type: "bar",
+        x: seasonPoints.reverse(),
+        y: fullName.reverse(),
+        // text: `Wins: ${standings_list[0].wins}`,
+        orientation: 'h',
+        marker: {
+          color: 'rgb(255, 24, 1)'
+        },        
+    }];
 
-  // let barConfig = {responsive: true}
+    let barLayout = {
 
-  // Plotly.newPlot("bar", barChart, barLayout, barConfig);
+      title: { text: `Driver Standings for ${year}` },
+      width: 445,
+      // autosize: true,
+      margin: {
+        'pad': 10,
+        t: 45,
+        r: 0,
+        l: 125
+      },
+
+      // xaxis: {
+      //   autotick: false,
+      //   ticks: ‘outside’,
+      //   tick0: 0,
+      //   dtick: 0.25,
+      //   ticklen: 8,
+        
+      //   tickcolor: ‘#000’
+      // },
+
+
+
+      xaxis: {
+
+        title: {
+          text: "Points"
+        }
+      },
+      // yaxis: {
+
+      // }
+      
+    };
+
+    let barConfig = {responsive: true}
+
+    Plotly.newPlot("bar", barChart, barLayout);
+  })
 };
 
 // This function runs when the user changes the year - note: no changes are made to "value" in this function
