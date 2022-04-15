@@ -1,6 +1,7 @@
 let queryAPI = "https://ergast.com/api/f1/"
 let queryDriver = "drivers.json?"
-console.log(queryDriver);
+
+
 // Set up the year selection
 yearList = [];
 currentYear = new Date().getFullYear();
@@ -12,14 +13,16 @@ for (let y = currentYear; y >= firstDataYear; --y) {
 };
 
 console.log("before init");
-// Create URL
-let queryUrl = queryAPI + document.getElementById('selYear').value + queryDriver;
-let currentDriver = document.getElementById('selDataset').value;
+
+// FOR REFERENCE
+// year = document.getElementById('selYear').value;
+// driver = document.getElementById('selDataset').value;
 
 
 let dropdownMenu = d3.select("#selDataset");
 let yearMenu = d3.select("#selYear");
 
+//This function runs when the page is loaded
 function init() {
     console.log("init");
     yearList.forEach((y)=>{yearMenu.append("option").text(y).property("value").code;  
@@ -29,34 +32,27 @@ function init() {
     driverStandings(yearList[0]);
     };
 
+// This function fills out the Driver Demographics Section
 function demographics(userInput) {
   userYear = document.getElementById('selYear').value
   let currentQuery = queryAPI + userYear + "/" + queryDriver;
 
   d3.json(currentQuery).then(function (data) {
 
-      // The demographics info is in data.metadata
-      // meta is the list of all metadata dictionaries
+      // Match the userInput to the json 
       driversYear = data.MRData.DriverTable.Drivers;          
-      // meta = data.metadata;
-
-      //filter... within meta (aka data.metadata) match record.ID (record is a single dictionary in the metadata list of dictionaries) to the userInput
-      //selected is a all records (dictionaries) that match the ID of the userInput, of which there should only be one
-      // selected = meta.filter((record)=>record.id == userInput);
       selected = driversYear.filter((record)=>(record.givenName + " " + record.familyName) == userInput);
-      console.log(selected)
+
       //firstID is the first dictionary in the list of matching records, of which there should only have been one
       firstID = selected[0];
-      console.log(firstID)
-      let metaBox = d3.select("#sample-metadata");
+      let metaBox = d3.select("#driver-metadata");
 
       //A json dictionary is a js object. Object.entries() "returns an array of a given object's own enumerable string-keyed property [key, value] pairs".
-      // select the div with id(#) "sample-metadata" (aka metaBox) and append the key: value pairs in the given text format
       Object.entries(firstID).forEach(([key, value])=>{metaBox.append("option").text(`${key}: ${value}`);
       })
 })};
 
-
+// WIP
 function driverStandings(year){
   standingsQuery = "http://ergast.com/api/f1/" + year + "/driverStandings.json";
   console.log(standingsQuery);
@@ -113,7 +109,7 @@ function driverStandings(year){
 };
 
 
-
+// This function finds the driver list for a single given year
 function driverList(year){
   console.log("driverList");
 
@@ -136,12 +132,13 @@ function driverList(year){
 
 };
 
+// This function runs when the user changes the year
 function getYear(value){
   console.log("get year");
 
   document.getElementById('selDataset').options.length = 0;
   //empty the "Demographic Info" box
-  let metaBox = d3.select("#sample-metadata");
+  let metaBox = d3.select("#driver-metadata");
   metaBox.selectAll("*").remove();
 
   driverList(value);
@@ -153,11 +150,11 @@ function optionChanged(value) {
   console.log("option changed")
 
   //empty the "Demographic Info" box
-  let metaBox = d3.select("#sample-metadata");
+  let metaBox = d3.select("#driver-metadata");
   metaBox.selectAll("*").remove();
 
   demographics(value);
 };
 
-
-    init();
+//run when page is initialized
+init();

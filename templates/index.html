@@ -66,11 +66,14 @@
           <div class="col-md-3">
             <div class="box" id ="f1_news">
                 <p class = "text-center"><a href = "https://www.formula1.com/">Formula 1</a> Featured Article:</p>                  
-                <a href="{{ formula1.news_link}}"><p class = "text-center">{{ formula1.news_title }}</p> </a>
+                <a href="{{ formula1.f1_link}}"><p class = "text-center">{{ formula1.f1_title }}</p> </a>
             </div>
           </div>
           <div class="col-md-3 float-left">
-            <div class="box skyblue">col-md-3</div>
+            <div class="box" id ="espn_news">
+                <p class = "text-center"><a href = "https://www.espn.com/f1/">ESPN</a> Featured Article:</p>                  
+                <a href="{{ formula1.espn_link}}"><p class = "text-center">{{ formula1.espn_title }}</p> </a>
+            </div>
           </div>
           <div class="col-md-3">
             <div class="box skyblue">col-md-3</div>
@@ -98,7 +101,7 @@
                       <div class="panel panel-primary" style="min-width: 225px;">
                         <div class="panel-heading">
                         </div>
-                        <div id="sample-metadata" class="panel-body">
+                        <div id="driver-metadata" class="panel-body">
               <!-- metadata here -->
                         </div>
                       </div>
@@ -108,7 +111,7 @@
                 <div class="col-sm-12 col-md-6 graph">
                     <div id="bar"></div>
                 </div>
-                
+
                 <div class="col-sm-12 col-md-6 graph">
                     <a href="cloudiness.html" class="text-decoration-none"><h4 class="text-center">vs. Cloudiness</h4></a>                
                     <a href="cloudiness.html"><img src="assets/images/CloudVsLat.svg" class="img-fluid" title="Cloudiness vs Latitude" alt="Cloudiness vs Latitude"></a>
