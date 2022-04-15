@@ -25,7 +25,8 @@ function init() {
     yearList.forEach((y)=>{yearMenu.append("option").text(y).property("value").code;  
     }); 
 
-    driversYear_list = driverList(yearList[0]);
+    driverList(yearList[0]);
+    driverStandings(yearList[0]);
     };
 
 function demographics(userInput) {
@@ -56,6 +57,62 @@ function demographics(userInput) {
 })};
 
 
+function driverStandings(year){
+  standingsQuery = "http://ergast.com/api/f1/" + year + "/driverStandings.json";
+  console.log(standingsQuery);
+  d3.json(standingsQuery).then(function (data) {
+    console.log(data);
+    let driverPositions = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
+    console.log(driverPositions);
+    console.log(driverPositions[0].points);
+  
+    let standings_list = [];
+    for(let d in driverPositions){
+      console.log(driverPositions[d])
+      let points = driverPositions[d].points;
+      let givenName = driverPositions[d].Driver.givenName;
+      let familyName = driverPositions[d].Driver.familyName;
+      let wins = driverPositions[d].wins;
+      let constructor = driverPositions[d].Constructors[0].name;
+
+      console.log(points)
+      standings_list.push({"Points": points, "Name": givenName + " " + familyName, "Wins": wins, "Constructor": constructor 
+      });
+      console.log(standings_list)   
+    };
+})
+  // //BAR CHART
+  // let barChart = [{
+  //     type: "bar",
+  //     x: driverPositions.points.slice(0,10).reverse(),
+  //     y: driverPositions.Driver.familyName.map(j=>`otu ${j}`).slice(0,10).reverse(),
+  //     text: `Wins: ${driverPositions.wins.slice(0,10).reverse()}`,
+  //     orientation: 'h'
+  // }];
+
+  // let barLayout = {
+  //   title: { text: `Driver Standings for ${year}` },
+  //   margin: {
+  //     t: 23,
+  //   },
+  //   xaxis: {
+  //     title: {
+  //       text: "Points"
+  //     }
+  //   },
+  //   yaxis: {
+  //     title: {
+  //       text: "Driver"
+  //     }
+  //   }
+  // };
+
+  // let barConfig = {responsive: true}
+
+  // Plotly.newPlot("bar", barChart, barLayout, barConfig);
+};
+
+
 
 function driverList(year){
   console.log("driverList");
@@ -79,7 +136,6 @@ function driverList(year){
 
 };
 
-
 function getYear(value){
   console.log("get year");
 
@@ -89,8 +145,8 @@ function getYear(value){
   metaBox.selectAll("*").remove();
 
   driverList(value);
+  driverStandings(value);
 };
-
 
 // This function is called when a dropdown menu item is selected
 function optionChanged(value) {
