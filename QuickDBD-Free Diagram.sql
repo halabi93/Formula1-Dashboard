@@ -3,141 +3,146 @@
 -- NOTE! If you have used non-SQL datatypes in your design, you will have to change these here.
 
 
-CREATE TABLE "Constructors" (
-    "constructorID" int   NOT NULL,
-    "constructorRef" text   NOT NULL,
+CREATE TABLE "constructors" (
+    "constructor_id" int   NOT NULL,
+    "constructor_ref" text   NOT NULL,
     "name" text   NOT NULL,
     "nationality" text   NOT NULL,
     "url" text   NOT NULL,
-    CONSTRAINT "pk_Constructors" PRIMARY KEY (
-        "constructorID"
+    CONSTRAINT "pk_constructors" PRIMARY KEY (
+        "constructor_id"
      )
 );
 
-CREATE TABLE "Driver" (
-    "driverID" int   NOT NULL,
-    "forename" text   NOT NULL,
-    "surname" text   NOT NULL,
+CREATE TABLE "drivers" (
+    "driver_id" int   NOT NULL,
+    "driver_ref" text NOT NULL,
+    "number" int NOT NULL,
+    "code" text NOT NULL
+    "first_name" text   NOT NULL,
+    "last_name" text   NOT NULL,
     "dob" date   NOT NULL,
     "nationality" text   NOT NULL,
     "url" text   NOT NULL,
-    CONSTRAINT "pk_Driver" PRIMARY KEY (
-        "driverID"
+    CONSTRAINT "pk_driver" PRIMARY KEY (
+        "driver_id"
      )
 );
 
-CREATE TABLE "Circuit" (
-    "circuitID" int   NOT NULL,
-    "circuitRef" text   NOT NULL,
-    "nameOfCircuit" text   NOT NULL,
+CREATE TABLE "circuits" (
+    "circuit_id" int   NOT NULL,
+    "circuit_ref" text   NOT NULL,
+    "circuit_name" text   NOT NULL,
     "location" text   NOT NULL,
     "lat" dec   NOT NULL,
     "lng" dec   NOT NULL,
     "alt" dec   NOT NULL,
     "url" text   NOT NULL,
-    CONSTRAINT "pk_Circuit" PRIMARY KEY (
-        "circuitID"
+    CONSTRAINT "pk_circuit" PRIMARY KEY (
+        "circuit_id"
      )
 );
 
-CREATE TABLE "Status" (
-    "statusID" int   NOT NULL,
+CREATE TABLE "status" (
+    "status_id" int   NOT NULL,
     "status" text   NOT NULL,
-    CONSTRAINT "pk_Status" PRIMARY KEY (
-        "statusID"
+    CONSTRAINT "pk_status" PRIMARY KEY (
+        "status_id"
      )
 );
 
-CREATE TABLE "Race" (
-    "raceID" int   NOT NULL,
+CREATE TABLE "races" (
+    "race_id" int   NOT NULL,
     "year" int   NOT NULL,
     "round" int   NOT NULL,
-    "circuitID" int   NOT NULL,
+    "circuit_id" int   NOT NULL,
     "name" text   NOT NULL,
     "date" date   NOT NULL,
     "time" time   NOT NULL,
     "url" text   NOT NULL,
-    CONSTRAINT "pk_Race" PRIMARY KEY (
-        "raceID"
+    CONSTRAINT "pk_race" PRIMARY KEY (
+        "race_id"
      )
 );
 
-CREATE TABLE "Qualifying" (
-    "raceID" int   NOT NULL,
-    "driverID" int   NOT NULL,
-    "constructorID" int   NOT NULL,
+CREATE TABLE "qualifying" (
+    "qualify_id" int NOT NULL,
+    "race_id" int   NOT NULL,
+    "driver_id" int   NOT NULL,
+    "constructor_id" int   NOT NULL,
+    "number" int NOT NULL,
     "position" int   NOT NULL,
     "q1" time   NOT NULL,
     "q2" time   NOT NULL,
     "q3" time   NOT NULL
 );
 
-CREATE TABLE "LapTime" (
-    "raceID" int   NOT NULL,
-    "driverID" int   NOT NULL,
+CREATE TABLE "lap_times" (
+    "race_id" int   NOT NULL,
+    "driver_id" int   NOT NULL,
     "lap" int   NOT NULL,
     "position" int   NOT NULL,
-    "time(milli)" int   NOT NULL
+    "time_milli" int   NOT NULL
 );
 
-CREATE TABLE "PitStop" (
-    "raceID" int   NOT NULL,
-    "driverID" int   NOT NULL,
-    "stopNumber" int   NOT NULL,
+CREATE TABLE "pit_stops" (
+    "race_id" int   NOT NULL,
+    "driver_id" int   NOT NULL,
+    "stop_number" int   NOT NULL,
     "lap" int   NOT NULL,
     "time" time   NOT NULL,
-    "duration(milli)" int   NOT NULL
+    "duration_milli" int   NOT NULL
 );
 
-CREATE TABLE "Results" (
-    "raceID" int   NOT NULL,
-    "driverID" int   NOT NULL,
-    "constructorID" int   NOT NULL,
+CREATE TABLE "results" (
+    "race_id" int   NOT NULL,
+    "driver_id" int   NOT NULL,
+    "constructor_id" int   NOT NULL,
     "grid" int   NOT NULL,
     "position" int   NOT NULL,
     "points" float   NOT NULL,
     "laps" int   NOT NULL,
-    "time(milli)" int   NOT NULL,
-    "fastestLap" int   NOT NULL,
-    "fastestLapRank" int   NOT NULL,
-    "fastestLaptime" time   NOT NULL,
-    "fastestLapSpeed" float   NOT NULL,
-    "statusID" int   NOT NULL
+    "time_milli" int   NOT NULL,
+    "fastest_lap" int   NOT NULL,
+    "fastest_lap_rank" int   NOT NULL,
+    "fastest_lap_time" time   NOT NULL,
+    "fastest_lap_speed" float   NOT NULL,
+    "status_id" int   NOT NULL
 );
 
-ALTER TABLE "Race" ADD CONSTRAINT "fk_Race_circuitID" FOREIGN KEY("circuitID")
-REFERENCES "Circuit" ("circuitID");
+ALTER TABLE "races" ADD CONSTRAINT "fk_race_circuit_id" FOREIGN KEY("circuit_id")
+REFERENCES "circuits" ("circuit_id");
 
-ALTER TABLE "Qualifying" ADD CONSTRAINT "fk_Qualifying_raceID" FOREIGN KEY("raceID")
-REFERENCES "Race" ("raceID");
+ALTER TABLE "qualifying" ADD CONSTRAINT "fk_qualifying_race_id" FOREIGN KEY("race_id")
+REFERENCES "races" ("race_id");
 
-ALTER TABLE "Qualifying" ADD CONSTRAINT "fk_Qualifying_driverID" FOREIGN KEY("driverID")
-REFERENCES "Driver" ("driverID");
+ALTER TABLE "qualifying" ADD CONSTRAINT "fk_qualifying_driver_id" FOREIGN KEY("driver_id")
+REFERENCES "drivers" ("driver_id");
 
-ALTER TABLE "Qualifying" ADD CONSTRAINT "fk_Qualifying_constructorID" FOREIGN KEY("constructorID")
-REFERENCES "Constructors" ("constructorID");
+ALTER TABLE "qualifying" ADD CONSTRAINT "fk_qualifying_constructor_id" FOREIGN KEY("constructor_id")
+REFERENCES "constructors" ("constructor_id");
 
-ALTER TABLE "LapTime" ADD CONSTRAINT "fk_LapTime_raceID" FOREIGN KEY("raceID")
-REFERENCES "Race" ("raceID");
+ALTER TABLE "lap_times" ADD CONSTRAINT "fk_lap_times_race_id" FOREIGN KEY("race_id")
+REFERENCES "races" ("race_id");
 
-ALTER TABLE "LapTime" ADD CONSTRAINT "fk_LapTime_driverID" FOREIGN KEY("driverID")
-REFERENCES "Driver" ("driverID");
+ALTER TABLE "lap_times" ADD CONSTRAINT "fk_lap_times_driver_id" FOREIGN KEY("driver_id")
+REFERENCES "drivers" ("driver_id");
 
-ALTER TABLE "PitStop" ADD CONSTRAINT "fk_PitStop_raceID" FOREIGN KEY("raceID")
-REFERENCES "Race" ("raceID");
+ALTER TABLE "pit_stops" ADD CONSTRAINT "fk_pit_stops_race_id" FOREIGN KEY("race_id")
+REFERENCES "races" ("race_id");
 
-ALTER TABLE "PitStop" ADD CONSTRAINT "fk_PitStop_driverID" FOREIGN KEY("driverID")
-REFERENCES "Driver" ("driverID");
+ALTER TABLE "pit_stops" ADD CONSTRAINT "fk_pit_stops_driver_id" FOREIGN KEY("driver_id")
+REFERENCES "drivers" ("driver_id");
 
-ALTER TABLE "Results" ADD CONSTRAINT "fk_Results_raceID" FOREIGN KEY("raceID")
-REFERENCES "Race" ("raceID");
+ALTER TABLE "results" ADD CONSTRAINT "fk_results_raceid_" FOREIGN KEY("race_id")
+REFERENCES "races" ("race_id");
 
-ALTER TABLE "Results" ADD CONSTRAINT "fk_Results_driverID" FOREIGN KEY("driverID")
-REFERENCES "Driver" ("driverID");
+ALTER TABLE "results" ADD CONSTRAINT "fk_results_driver_id" FOREIGN KEY("driver_id")
+REFERENCES "drivers" ("driver_id");
 
-ALTER TABLE "Results" ADD CONSTRAINT "fk_Results_constructorID" FOREIGN KEY("constructorID")
-REFERENCES "Constructors" ("constructorID");
+ALTER TABLE "results" ADD CONSTRAINT "fk_results_constructor_id" FOREIGN KEY("constructor_id")
+REFERENCES "constructors" ("constructor_id");
 
-ALTER TABLE "Results" ADD CONSTRAINT "fk_Results_statusID" FOREIGN KEY("statusID")
-REFERENCES "Status" ("statusID");
+ALTER TABLE "results" ADD CONSTRAINT "fk_results_status_id" FOREIGN KEY("status_id")
+REFERENCES "status" ("status_id");
 
