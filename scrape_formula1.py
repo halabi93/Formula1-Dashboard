@@ -20,6 +20,12 @@ def scrape_info():
     results_link = soup.find_all('a', class_='f1-cc')[0]["href"]
     f1_link = url + results_link
 
+    # Bonus Article from formula 1 website
+    result_title = soup.find('div', class_='f1-race-hub--latest').find("div").find("fieldset").find("div").find("div").find("a")["href"]
+    f1_bonus = "https://www.formula1.com" + result_title
+    bonus_title = soup.find('div', class_='f1-race-hub--latest').find("div").find("fieldset").find("div").find("div").find("a").find("p", class_ = "f1--s").text
+
+
     # Article from ESPN's dedicated F1 page
     url = "https://www.espn.com/f1/"
     link_prefix = "https://www.espn.com"
@@ -36,6 +42,8 @@ def scrape_info():
         "f1_link": f1_link,
         "espn_title": espn_title,
         "espn_link": espn_link,
+         "f1_bonus": f1_bonus,
+        "bonus_title": bonus_title,
    }
 
     # Close the browser after scraping

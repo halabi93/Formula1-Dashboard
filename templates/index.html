@@ -71,12 +71,15 @@
           </div>
           <div class="col-md-3 float-left">
             <div class="box" id ="espn_news">
-                <p class = "text-center"><a href = "https://www.espn.com/f1/">ESPN</a> Featured Article:</p>                  
-                <a href="{{ formula1.espn_link}}"><p class = "text-center">{{ formula1.espn_title }}</p> </a>
+                <p class = "text-center"><a href = "https://www.formula1.com/">Formula 1</a> Calendar:</p>                  
+                <a href="{{ formula1.f1_bonus}}"><p class = "text-center">{{ formula1.bonus_title }}</p> </a>
             </div>
           </div>
           <div class="col-md-3">
-            <div class="box skyblue">col-md-3</div>
+            <div class="box" id = "espn-news">
+                <p class = "text-center"><a href = "https://www.espn.com/f1/">ESPN</a> Featured Article:</p>                  
+                <a href="{{ formula1.espn_link}}"><p class = "text-center">{{ formula1.espn_title }}</p> </a>                
+            </div>
           </div>
           <div class="col-md-3">
             <div class="box skyblue">col-md-3</div>
@@ -118,8 +121,8 @@
 
 
                 <div class="col-sm-12 col-md-5 graph bg-light">
-                    <a href="windspeed.html" class="text-decoration-none"><h4 class="text-center">vs. Latitude</h4></a>                 
-                    <a href="windspeed.html"><img src="assets/images/WSpdVsLat.svg" class="img-fluid" title="Wind Speed vs Latitude" alt="Wind Speed vs Latitude"></a>
+                    <!-- <a href="windspeed.html" class="text-decoration-none"><h4 class="text-center">vs. Latitude</h4></a>                 
+                    <a href="windspeed.html"><img src="assets/images/WSpdVsLat.svg" class="img-fluid" title="Wind Speed vs Latitude" alt="Wind Speed vs Latitude"></a> -->
                 </div>
             </div>
         </div>
