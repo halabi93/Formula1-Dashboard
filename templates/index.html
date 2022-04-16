@@ -2,71 +2,135 @@
 <html lang="en">
 
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Formula 1 Dashboard</title>
-                
-        <!-- Leaflet CSS -->
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-        crossorigin="" />
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Formula 1 Dashboard</title>
+              
+      <!-- Leaflet CSS -->
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin="" />
 
-        <!-- Our CSS -->
-        <link href="../static/css/style.css" rel="stylesheet" type="text/css">
+      <!-- Our CSS -->
+      <link href="../static/css/style.css" rel="stylesheet" type="text/css">
 
-        <!-- Bootsrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+      <!-- Bootsrap CSS -->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
     </head>
-
     <body>
+  
+<!-- NavBar edited from template provided by https://getbootstrap.com/docs/5.0/components/navbar/-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id = "header">
+        <div class="container-fluid">
+        <a class="navbar-brand text-white" href="/scrape" role="button">Update Current News</a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <h1>Formula 1 Information Dashboard</h1>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
-        <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Update</a></p>
-        <div class="row h-100" id="section">
-            <div class="wrapper col overflow-auto bg-light h-100"> 
-                <h2 class = "text-center">Formula 1</h2>
-                <hr>
-                <div>
-                    <h5 class = "text-center">{{ formula1.news_title }}</h5>
-                    <p class = "text-center">Cars Cars Cars</p>
-                </div>
-                <!-- <a href="circuit.html">The Map</a> -->
-                <p><a href="{{ url_for('circuit_map') }}">The Map</a></p>
-            </div>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Plots
+                </a>
+                <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDropdown">
+                    <!-- <li><a class="dropdown-item" href="maxtemp.html">Maximum Temperature</a></li>
+                    <li><a class="dropdown-item" href="humidity.html">Humidity</a></li>
+                    <li><a class="dropdown-item" href="cloudiness.html">Cloudiness</a></li>
+                    <li><a class="dropdown-item" href="windspeed.html">Wind Speed</a></li>                                     -->
+                </ul>
+            </li>
+
+            <li class="nav-item">
+                <!-- <a class="nav-link" href="comparisons.html">Comparisons</a> -->
+            </li>
+
+            <li class="nav-item">
+                <!-- <a class="nav-link" href="data.html">Data</a> -->
+            </li>
+
+            </ul>
         </div>
+        </div>
+    </nav>
 
+<!-- Our rows function in containers (grid created). -->
+<div class="container" id="currentNews">
+        <!--Normally these medium columns go full wide on small screen sizes-->
         <div class="row">
-            <div class="col-md-3">
-              <div class="well" style="min-width: 225px;">
-                <h5>Driver Name:</h5>
-                <select id="selDataset" onchange="optionChanged(this.value)"></select>
-      
-              </div>
-              <div class="panel panel-primary" style="min-width: 225px;">
-                <div class="panel-heading">
-                  <h3 class="panel-title">Driver Info</h3>
+          <div class="col-md-3">
+            <div class="box" id ="f1_news">
+                <p class = "text-center"><a href = "https://www.formula1.com/">Formula 1</a> Featured Article:</p>                  
+                <a href="{{ formula1.f1_link}}"><p class = "text-center">{{ formula1.f1_title }}</p> </a>
+            </div>
+          </div>
+          <div class="col-md-3 float-left">
+            <div class="box" id ="espn_news">
+                <p class = "text-center"><a href = "https://www.espn.com/f1/">ESPN</a> Featured Article:</p>                  
+                <a href="{{ formula1.espn_link}}"><p class = "text-center">{{ formula1.espn_title }}</p> </a>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="box skyblue">col-md-3</div>
+          </div>
+          <div class="col-md-3">
+            <div class="box skyblue">col-md-3</div>
+          </div>
+        </div>
+  </div>
+
+  <div id = "Visualizations">
+    <div class="container">
+        <select id="selYear" onchange="getYear(this.value)"></select><h3 class = "text-center" id = "season-info">Season Information</h3>
+        <hr>
+        <div class="container">
+            <div class="row">
+
+                <!-- Standings -->
+                <div class="col-sm-12 col-md-5 graph bg-light">
+                    <div id="bar"></div>
                 </div>
-                <div id="sample-metadata" class="panel-body">
-      <!-- metadata here -->
+
+                <div class="col-sm-12 col-md-5 graph bg-light">
+
                 </div>
-              </div>
+
+                <!-- Demographics DropDown -->
+                <div class="col-sm-12 col-md-5 graph bg-light">
+                    <h4>Driver Demographics</h4>
+                    <div class="well" style="min-width: 225px;">
+                        <h5>Driver Name:</h5>
+                        <select id="selDataset" onchange="optionChanged(this.value)"></select>      
+                    </div>
+                      <div class="panel panel-primary" style="min-width: 225px;">
+                        <div class="panel-heading">
+                        </div>
+                        <div id="driver-metadata" class="panel-body">
+              <!-- metadata here -->
+                        </div>
+                      </div>                   
+                </div>
+
+
+                <div class="col-sm-12 col-md-5 graph bg-light">
+                    <a href="windspeed.html" class="text-decoration-none"><h4 class="text-center">vs. Latitude</h4></a>                 
+                    <a href="windspeed.html"><img src="assets/images/WSpdVsLat.svg" class="img-fluid" title="Wind Speed vs Latitude" alt="Wind Speed vs Latitude"></a>
+                </div>
             </div>
         </div>
 
 
 
 
-        <form action="../static/js/logic.js">
-            <label for="fname">Start Year:</label>
-            <input type="text" id="cyear1" name="cyear1"><br><br>
-            <!-- <label for="lname">Last name:</label>
-            <input type="text" id="lname" name="lname"><br><br> -->
-            <input type="submit" onclick="getCircuitURL()" value="Submit">
-          </form>
-  <!-- The div that holds our map -->
-  <div id="map"></div>
 
 
+
+        
         <!-- Leaflet JS -->
         <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
             integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
@@ -83,9 +147,10 @@
 
         <!-- Our JavaScript -->
         <script type="text/javascript" src="../static/js/logic.js"></script>
-
-
         <script src="../static/js/app.js"></script>
+
+        <!-- Plot.ly -->
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
         <!-- Bootstrap -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
