@@ -44,7 +44,7 @@ function driverList(year){
 
   // Use the year to create the query
   queryUrl = queryAPI + year + "/" + queryDriver;
-  console.log(queryUrl);
+
   // Create Driver list
   d3.json(queryUrl).then(function (data) {
 
@@ -87,51 +87,45 @@ function demographics(userInput) {
       //firstID is the first dictionary in the list of matching records, of which there should only have been one
       firstID = selected[0];
       let metaBox = d3.select("#driver-metadata");
-      console.log(firstID);
+
+      //Format the dictionary entries - The order here determines the order on the webpage
+      firstID["Given Name"] = firstID["givenName"];
+      delete firstID["givenName"];
+
+      firstID["Family Name"] = firstID["familyName"];
+      delete firstID["familyName"];
 
       firstID["Driver ID"] = firstID["driverId"];
       delete firstID["driverId"];
 
-      firstID["Permanent Number"] = firstID["permanentNumber"];
-      delete firstID["permanentNumber"];
+      if ("code" in firstID){
+        firstID["Code"] = firstID["code"];
+        delete firstID["code"];
+      };
+      
+      if ("permanentNumber" in firstID){
+        firstID["Permanent Number"] = firstID["permanentNumber"];
+        delete firstID["permanentNumber"];
+      };
+      
+      firstID["Date of Birth"] = firstID["dateOfBirth"];
+      delete firstID["dateOfBirth"];
 
-      firstID["Permanent Number"] = firstID["permanentNumber"];
-      delete firstID["permanentNumber"];
+      firstID["Nationality"] = firstID["nationality"];
+      delete firstID["nationality"];
 
-      el_up = document.getElementById("wiki_link");
+      // Create URL from dictionary entry
+      wiki_url = firstID["url"]
+      delete firstID["url"];
 
-      // Create anchor element.
-      let a = document.createElement('a'); 
-                  
-      // Create the text node for anchor element.
-      let link = document.createTextNode("This is link");
-        
-      // Append the text node to anchor element.
-      a.appendChild(link); 
-        
-      // Set the title.
-      a.title = "This is Link"; 
-        
-      // Set the href property.
-      a.href = firstID["url"]; 
-        
-      // Append the anchor element to the body.
-      document.body.appendChild(a); 
-
-      // href1_string = firstID["url"].a.href;
-      // href1_url = new URL(href1_string);
-      // element = document.getElementById("wiki_link");      
-      // element.setAttribute("href", href1_string);
+      //Create new wikipedia link
+      node = document.getElementById('wiki_link');
+      node.insertAdjacentHTML('afterend', `<a href=${wiki_url} id = "bio_link">Wikipedia Bio</a>`);
 
       //A json dictionary is a js object. Object.entries() "returns an array of a given object's own enumerable string-keyed property [key, value] pairs".
       Object.entries(firstID).forEach(([key, value])=>{metaBox.append("option").text(`${key}: ${value}`);
       })
-      // document.getElementById("wiki_link").href = href1_url;
-      // practise = document.getElementsByTagName("selection")[0];
-      // newname = practise.replace("driverId", "Driver ID");
-      // if (practise == driverId)
 
-    // console.log(practise);
 })};
 
 // This function creates a bar chart with the Driver Standings for the user chosen year
@@ -144,15 +138,13 @@ function driverStandings(year){
     // console.log(data);
     let driverPositions = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
     // console.log(driverPositions);
-    console.log(driverPositions[0].points);
+    // console.log(driverPositions[0].points);
   
-    let standings_list = [];
-
     let seasonPoints = [];
     let fullName = [];
     let wins = [];
     let constructor = [];
-    console.log(seasonPoints);
+    // console.log(seasonPoints);
 
     for(let d in driverPositions){
       seasonPoints.push(parseInt(driverPositions[d].points));
@@ -221,6 +213,7 @@ function driverStandings(year){
 function getYear(value){
   console.log("get year");
 
+  // Create header
   document.getElementById('season-info').innerHTML = `${value} Season Information`;
 
   // empty the previous driver list
@@ -229,6 +222,10 @@ function getYear(value){
   //empty the "Demographic Info" box
   let metaBox = d3.select("#driver-metadata");
   metaBox.selectAll("*").remove();
+
+  // Delete any wikipedia link currently in place
+  old_node = document.getElementById('bio_link');
+  old_node.remove()
 
   // Run functions with the passed "value"
   driverList(value);
@@ -243,9 +240,41 @@ function optionChanged(value) {
   let metaBox = d3.select("#driver-metadata");
   metaBox.selectAll("*").remove();
 
+  // Delete any wikipedia link currently in place
+  old_node = document.getElementById('bio_link');
+  old_node.remove()
+
   // Run functions with the passed "value"
   demographics(value);
 };
 
 // This will run when index.html is initialized
 init();
+
+
+const { Client } = require('pg')
+const client = new Client()
+client.connect()
+client.query('SELECT $1::text as message', ['Hello world!'], (err, res) => {
+  console.log(err ? err.stack : res.rows[0].message) // Hello World!
+  client.end()
+})
+
+
+
+// var postgres = require('postgres');
+
+// var con = postgres.createConnection({
+//   host: "localhost",
+//   user: "postgres",
+//   password: "postgres",
+//   database: "postgres"
+// });
+
+// con.connect(function(err) {
+//   if (err) throw err;
+//   con.query("SELECT * FROM customers", function (err, result, fields) {
+//     if (err) throw err;
+//     console.log(result);
+//   });
+// });
