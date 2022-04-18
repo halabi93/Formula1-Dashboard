@@ -44,7 +44,7 @@ function driverList(year){
 
   // Use the year to create the query
   queryUrl = queryAPI + year + "/" + queryDriver;
-
+  console.log(queryUrl);
   // Create Driver list
   d3.json(queryUrl).then(function (data) {
 
@@ -58,8 +58,11 @@ function driverList(year){
       driversYear_list.push(driversYear[i].givenName + " " + driversYear[i].familyName);
     };
 
+    // Need to find a way to format the dropdown items
     driversYear_list.forEach((driver)=>{dropdownMenu.append("option").text(driver).property("value").code;  
     });  
+
+   
 
     // Run the demographics function with the first driver in the list as default
     demographics(driversYear_list[0]);
@@ -84,10 +87,51 @@ function demographics(userInput) {
       //firstID is the first dictionary in the list of matching records, of which there should only have been one
       firstID = selected[0];
       let metaBox = d3.select("#driver-metadata");
+      console.log(firstID);
+
+      firstID["Driver ID"] = firstID["driverId"];
+      delete firstID["driverId"];
+
+      firstID["Permanent Number"] = firstID["permanentNumber"];
+      delete firstID["permanentNumber"];
+
+      firstID["Permanent Number"] = firstID["permanentNumber"];
+      delete firstID["permanentNumber"];
+
+      el_up = document.getElementById("wiki_link");
+
+      // Create anchor element.
+      let a = document.createElement('a'); 
+                  
+      // Create the text node for anchor element.
+      let link = document.createTextNode("This is link");
+        
+      // Append the text node to anchor element.
+      a.appendChild(link); 
+        
+      // Set the title.
+      a.title = "This is Link"; 
+        
+      // Set the href property.
+      a.href = firstID["url"]; 
+        
+      // Append the anchor element to the body.
+      document.body.appendChild(a); 
+
+      // href1_string = firstID["url"].a.href;
+      // href1_url = new URL(href1_string);
+      // element = document.getElementById("wiki_link");      
+      // element.setAttribute("href", href1_string);
 
       //A json dictionary is a js object. Object.entries() "returns an array of a given object's own enumerable string-keyed property [key, value] pairs".
       Object.entries(firstID).forEach(([key, value])=>{metaBox.append("option").text(`${key}: ${value}`);
       })
+      // document.getElementById("wiki_link").href = href1_url;
+      // practise = document.getElementsByTagName("selection")[0];
+      // newname = practise.replace("driverId", "Driver ID");
+      // if (practise == driverId)
+
+    // console.log(practise);
 })};
 
 // This function creates a bar chart with the Driver Standings for the user chosen year
@@ -111,7 +155,6 @@ function driverStandings(year){
     console.log(seasonPoints);
 
     for(let d in driverPositions){
-      console.log(driverPositions[d].points)
       seasonPoints.push(parseInt(driverPositions[d].points));
 
       fullName.push(driverPositions[d].Driver.givenName + " " + driverPositions[d].Driver.familyName);
