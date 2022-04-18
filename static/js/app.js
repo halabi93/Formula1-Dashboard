@@ -62,8 +62,6 @@ function driverList(year){
     driversYear_list.forEach((driver)=>{dropdownMenu.append("option").text(driver).property("value").code;  
     });  
 
-   
-
     // Run the demographics function with the first driver in the list as default
     demographics(driversYear_list[0]);
   })
@@ -239,43 +237,3 @@ function optionChanged(value) {
 
 // This will run when index.html is initialized
 init();
-
-
-import { Client } from '../../f1_db.sql';
-const client = new Client({
-  user: db_user,
-  host: db_host,
-  database: db_database,
-  password: db_password,
-  port: db_port,
-})
-client.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-});
-
-// const client = new Client()
-// client.connect()
-// client.query('SELECT $1::text as message', ['Hello world!'], (err, res) => {
-//   console.log(err ? err.stack : res.rows[0].message) // Hello World!
-//   client.end()
-// })
-
-
-
-// var postgres = require('postgres');
-
-// var con = postgres.createConnection({
-//   host: "localhost",
-//   user: "postgres",
-//   password: "postgres",
-//   database: "postgres"
-// });
-
-// con.connect(function(err) {
-//   if (err) throw err;
-//   con.query("SELECT * FROM customers", function (err, result, fields) {
-//     if (err) throw err;
-//     console.log(result);
-//   });
-// });
