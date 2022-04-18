@@ -241,13 +241,25 @@ function optionChanged(value) {
 init();
 
 
-const { Client } = require('pg')
-const client = new Client()
-client.connect()
-client.query('SELECT $1::text as message', ['Hello world!'], (err, res) => {
-  console.log(err ? err.stack : res.rows[0].message) // Hello World!
-  client.end()
+import { Client } from '../../f1_db.sql';
+const client = new Client({
+  user: db_user,
+  host: db_host,
+  database: db_database,
+  password: db_password,
+  port: db_port,
 })
+client.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
+
+// const client = new Client()
+// client.connect()
+// client.query('SELECT $1::text as message', ['Hello world!'], (err, res) => {
+//   console.log(err ? err.stack : res.rows[0].message) // Hello World!
+//   client.end()
+// })
 
 
 
