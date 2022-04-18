@@ -241,18 +241,23 @@ function optionChanged(value) {
 init();
 
 
-import { Client } from '../../f1_db.sql';
-const client = new Client({
-  user: db_user,
-  host: db_host,
-  database: db_database,
-  password: db_password,
-  port: db_port,
-})
-client.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-});
+// import { Client } from 'pg';
+// var connectionString = "postgres://postgres:Zhalabi#11@localhost:5432/Formula1";
+// var pgClient = new Client(connectionString);
+// pgClient.connect();
+
+// import { Client } from '../../f1_db.sql';
+// const client = new Client({
+//   user: db_user,
+//   host: db_host,
+//   database: db_database,
+//   password: db_password,
+//   port: db_port,
+// })
+// client.connect(function(err) {
+//   if (err) throw err;
+//   console.log("Connected!");
+// });
 
 // const client = new Client()
 // client.connect()

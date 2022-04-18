@@ -1,0 +1,22 @@
+{
+  "name": "project3-formula1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emeralddawns/Project3-Formula1.git"
+  },
+  "author": "Group3",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emeralddawns/Project3-Formula1/issues"
+  },
+  "homepage": "https://github.com/emeralddawns/Project3-Formula1#readme",
+  "dependencies": {
+    "pg": "^8.7.3"
+  }
+}
