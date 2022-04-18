@@ -3,7 +3,7 @@ const Client = require('pg').Client
 
 const client = new Client({
     user:"postgres",
-    password:"Zhalabi#11",
+    password:"",
     host:"ZouheirElHalabi.local",
     port: 5432,
     database:"Formula1"
