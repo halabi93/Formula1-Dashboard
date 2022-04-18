@@ -43,6 +43,11 @@ html {
   border-radius: 2%
 }
 
+#driver_standings {
+  min-height: 350pt;
+  min-width: 350pt;
+}
+
 h3 {
   text-align: center;
 }

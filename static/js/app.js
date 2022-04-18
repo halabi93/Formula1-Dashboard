@@ -170,26 +170,15 @@ function driverStandings(year){
     let barLayout = {
 
       title: { text: `Driver Standings for ${year}` },
+      height: 600,
       width: 445,
       // autosize: true,
       margin: {
         'pad': 10,
         t: 45,
         r: 0,
-        l: 125
+        l: 145
       },
-
-      // xaxis: {
-      //   autotick: false,
-      //   ticks: ‘outside’,
-      //   tick0: 0,
-      //   dtick: 0.25,
-      //   ticklen: 8,
-        
-      //   tickcolor: ‘#000’
-      // },
-
-
 
       xaxis: {
 
