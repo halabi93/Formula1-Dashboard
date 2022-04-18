@@ -1,3 +1,3 @@
-password = "Password"
+password = ""
 user = "postgres"
-db_name = "project_3"
+db_name = "Formula1"
