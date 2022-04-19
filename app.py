@@ -85,6 +85,24 @@ def avg_lap_time(year):
     session.close()
     return jsonify(datadict)
 
+
+@app.route('/avg-lap-time-per-driver/<year>/<first_name>/<last_name>')
+def avg_lap_time_per_driver(year, first_name, last_name):
+    session = Session(engine)
+    q = f"SELECT l.race_id, l.avg_lap_time, l.driver_id, d.first_name, d.last_name, r.year, r.round \
+            FROM lap_time_avg_per_driver AS l \
+                JOIN races AS r ON r.race_id=l.race_id  \
+                    JOIN drivers AS d ON l.driver_id=d.driver_id  \
+                        WHERE (year={year} AND last_name='{last_name}' AND first_name='{first_name}')\
+                            ORDER BY (r.year,r.round)"
+    results = pd.read_sql(q,engine)
+    results = results.drop(["race_id", "driver_id", "year", "round", "first_name", "last_name"], axis = 1)
+    datadict = results.to_dict('records')
+    session.close()
+    return jsonify(datadict)
+
+
+
 @app.route('/avg-pit-time/<year>')
 def avg_pit_time(year):
     session = Session(engine)
@@ -110,11 +128,41 @@ def avg_pit_time_per_driver(year, first_name, last_name):
                         WHERE (year={year} AND last_name='{last_name}' AND first_name='{first_name}')\
                             ORDER BY (r.year,r.round)"
     results = pd.read_sql(q,engine)
-    results = results.drop(["first_name", "last_name", "race_id", "driver_id", "year", "round"], axis = 1)
+    results = results.drop(["race_id", "driver_id", "year", "round", "first_name", "last_name"], axis = 1)
     datadict = results.to_dict('records')
     session.close()
     return jsonify(datadict)
 
+
+@app.route('/avg-fastest-lap-speed/<year>')
+def avg_fastest_lap_speed(year):
+    session = Session(engine)
+    q = f"SELECT l.race_id, l.avg_fastest_lap, r.year, r.round \
+            FROM lap_fastest_time_avg AS l \
+                JOIN races AS r ON r.race_id=l.race_id  \
+                    WHERE year={year}\
+                        ORDER BY (r.year,r.round)"
+    results = pd.read_sql(q,engine)
+    results = results.drop(["race_id", "year", "round", "first_name", "last_name"], axis = 1)
+    datadict = results.to_dict('records')
+    session.close()
+    return jsonify(datadict)
+
+
+@app.route('/fastest-lap-avg-speed-per-driver/<year>/<first_name>/<last_name>')
+def fastest_lap_avg_speed_per_driver(year, first_name, last_name):
+    session = Session(engine)
+    q = f"SELECT f.race_id, f.fastest_lap_time, f.driver_id, d.first_name, d.last_name, r.year, r.round \
+            FROM fastest_lap_speed_per_driver AS f  \
+                JOIN races AS r ON r.race_id=f.race_id \
+                    JOIN drivers AS d ON f.driver_id=d.driver_id \
+                        WHERE (year={year} AND last_name='{last_name}' AND first_name='{first_name}')\
+                            ORDER BY (r.year,r.round)"
+    results = pd.read_sql(q,engine)
+    results = results.drop(["race_id", "driver_id", "year", "round", "first_name", "last_name"], axis = 1)
+    datadict = results.to_dict('records')
+    session.close()
+    return jsonify(datadict)
 
 
 
