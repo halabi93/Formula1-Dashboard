@@ -110,7 +110,7 @@ def avg_pit_time_per_driver(year, first_name, last_name):
                         WHERE (year={year} AND last_name='{last_name}' AND first_name='{first_name}')\
                             ORDER BY (r.year,r.round)"
     results = pd.read_sql(q,engine)
-    results = results.drop(["race_id", "driver_id", "year", "round"], axis = 1)
+    results = results.drop(["first_name", "last_name", "race_id", "driver_id", "year", "round"], axis = 1)
     datadict = results.to_dict('records')
     session.close()
     return jsonify(datadict)

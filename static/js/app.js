@@ -37,6 +37,7 @@ function init() {
   driverList(yearList[0]);
   driverStandings(yearList[0]);
   createMarkers(yearList[0]);
+  
 };
 
 // This function finds the driver list for a single given year
@@ -65,6 +66,7 @@ function driverList(year){
 
     // Run the demographics function with the first driver in the list as default
     demographics(driversYear_list[0]);
+    queryGraphs (driversYear_list[0]);
   })
 
 };
@@ -197,6 +199,49 @@ function driverStandings(year){
   })
 };
 
+function queryGraphs (userInput) {
+  first_name = userInput.split(' ')[0];
+  last_name = userInput.split(' ')[1];
+  year = document.getElementById('selYear').value;
+
+  d3.json(avg_pit_time_per_driver(year, first_name, last_name)).then(function (data) {
+      // let num_races = length
+   console.log(data);
+      let pit_line = {
+        //race
+        x: [1, 2, 3, 4],
+
+        y: [10, 15, 13, 17],
+        type: 'scatter'
+      };
+
+     
+      // var trace2 = {
+      //   x: [1, 2, 3, 4],
+      //   y: [16, 5, 11, 9],
+      //   type: 'scatter'
+      // };
+      
+      var data = [trace1];
+      
+      Plotly.newPlot('myDiv', data);
+
+
+
+
+
+  });
+  
+  
+
+
+};
+
+
+
+
+
+
 // This function runs when the user changes the year - note: no changes are made to "value" in this function
 function getYear(value){
   console.log("get year");
@@ -235,6 +280,7 @@ function optionChanged(value) {
 
   // Run functions with the passed "value"
   demographics(value);
+  queryGraphs(value);
 };
 
 // This will run when index.html is initialized
