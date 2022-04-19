@@ -154,7 +154,6 @@ function driverStandings(year){
       constructor.push(driverPositions[d].Constructors[0].name);    
     };
 
-    console.log(wins);
     //BAR CHART
     let barChart = [{
         type: "bar",
@@ -198,8 +197,14 @@ function driverStandings(year){
   })
 };
 
+// For the div with the circuit names
+
+
+// Graphs dependent on queries to our own API
 function queryGraphs (userInput) {
   console.log("query graphs");
+
+  circuit_names = [];
 
   first_name = userInput.split(' ')[0];
   last_name = userInput.split(' ')[1];
@@ -218,16 +223,12 @@ function queryGraphs (userInput) {
         ave_pit_times.push(ave_pit_data[i].avg_pit_duration / 1000);
       }
 
-      console.log(ave_pit_times);
       race_number = [];
       pit_times = [];
       for (let i in pit_data){
         race_number.push(Number(i) + 1);
         pit_times.push(pit_data[i].avg_pit_time / 1000);
       };
-
-      console.log(pit_times);
-      console.log(race_number);
 
       let pit_bar = {
         //race
@@ -305,16 +306,12 @@ function queryGraphs (userInput) {
         ave_lap_times.push(ave_lap_data[i].avg_lap_time / 1000);
       }
 
-      console.log(ave_lap_times);
       race_number = [];
       lap_times = [];
       for (let i in lap_data){
         race_number.push(Number(i) + 1);
         lap_times.push(lap_data[i].avg_lap_time / 1000);
       };
-
-      console.log(lap_times);
-      console.log(race_number);
 
       let lap_bar = {
         //race
@@ -386,20 +383,18 @@ function queryGraphs (userInput) {
 
       //Get API data into usable list
       ave_speed_times = [];
+      
       for (let i in ave_speed_data){
+        circuit_names.push(ave_speed_data[i].name);
         ave_speed_times.push(ave_speed_data[i].avg_fastest_lap / 1000);
       }
 
-      console.log(ave_speed_times);
       race_number = [];
       speed_times = [];
       for (let i in speed_data){
         race_number.push(Number(i) + 1);
         speed_times.push(speed_data[i].fastest_lap_time / 1000);
       };
-
-      console.log(speed_times);
-      console.log(race_number);
 
       let speed_bar = {
         //race
@@ -456,15 +451,19 @@ function queryGraphs (userInput) {
         }
         
       };
-
+      console.log(circuit_names);
       Plotly.newPlot('speed_bar', speed_bars, lap_layout);
 
+      // Fill out the circuit list
+      for (let i in circuit_names){
+        circuit_node = document.getElementById('circuit-list');
+        circuit_node.insertAdjacentHTML('afterend', `<ul>Circuit ${Number(i) + 1}: ${circuit_names[i]}</ul>`);
+      };
     });
   });
-
-
-
 };
+
+
 
 // This function runs when the user changes the year - note: no changes are made to "value" in this function
 function getYear(value){

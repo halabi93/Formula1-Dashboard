@@ -137,7 +137,7 @@ def avg_pit_time_per_driver(year, first_name, last_name):
 @app.route('/avg-fastest-lap-speed/<year>')
 def avg_fastest_lap_speed(year):
     session = Session(engine)
-    q = f"SELECT l.race_id, l.avg_fastest_lap, r.year, r.round \
+    q = f"SELECT l.race_id, l.avg_fastest_lap, r.year, r.round, r.name \
             FROM lap_fastest_time_avg AS l \
                 JOIN races AS r ON r.race_id=l.race_id  \
                     WHERE year={year}\
@@ -169,40 +169,4 @@ def fastest_lap_avg_speed_per_driver(year, first_name, last_name):
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-
-
-
-#     # Use flask_pymongo to set up mongo connection
-# app.config["MONGO_URI"] = "mongodb://localhost:27017/mars_app"
-# mongo = PyMongo(app)
-
-# # Route to render index.html template using data from Mongo
-# @app.route("/")
-# def index():
-
-#     # Find one record of data from the mongo database
-#     mars_data = mongo.db.mars.find_one()
-
-#     # Return template and data
-#     return render_template("index.html", mars=mars_data)
-
-# # Route that will trigger the scrape function
-# @app.route("/scrape")
-# def scrape():
-#     mars = mongo.db.mars
-
-#     # Run the scrape function
-#     formula1_data = scrape.scrape_info()
-
-#     # Update the Mongo database using update and upsert=True
-#     mars.update_one({}, {"$set": formula1_data}, upsert = True)
-
-
-
-
-
-
-
 
