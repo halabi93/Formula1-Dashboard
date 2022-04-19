@@ -1,44 +1,11 @@
+// The getCircuitURL function is called from app.js. All of the map-related functions are on this page (logic.js)
+
 let mapAPI = "http://ergast.com/api/f1/";
 let queryCircuit = "/circuits.json";
-let year = "2019";
-// function getCircuitURL(year) {
-  console.log("get circuit url")
-    circuitURL = (mapAPI + year + queryCircuit);
-
-  console.log(circuitURL);
-
-  createMarkers(circuitURL);
-// };
-
-// const circuitURL = "http://ergast.com/api/f1/circuits.json";
-// createMarkers(circuitURL)
-
-function createMarkers(circuitURL){
-  d3.json(circuitURL).then(function (data) {
-    // console.log(data)
-    circuits = data.MRData.CircuitTable.Circuits
-    console.log(circuits[0]);
-
-    circuitIdList = []
-    circuitMarkers = []
-
-    for (let i in circuits) {
-      circuit = circuits[i]
-      if (circuitIdList.includes(circuit.circuitId) == false){
-        circuitIdList.push(circuit.circuitId);
-        // Leaflet uses lat-lon
-        circuitMarkers.push(
-          L.marker([circuit.Location.lat, circuit.Location.long]).bindPopup(`<h3>${circuit.circuitName}:<h3>${circuit.Location.locality}, ${circuit.Location.country}`)
-        )};
-    };
-      let circuitLayer = L.layerGroup(circuitMarkers);
-      createMap(circuitLayer);
-  });
-};
 
 
 function createMap(circuitLayer) {
-
+  
   //Street Map base layer
   const street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -84,5 +51,76 @@ function createMap(circuitLayer) {
 
   L.control.layers(baseMaps, overlayMaps).addTo(myMap); 
   // {collapsed: true}
+};
 
+
+function getCircuitURL(year) {
+  console.log("get circuit url")
+    circuitURL = (mapAPI + year + queryCircuit);
+
+    console.log(circuitURL);
+
+    return circuitURL;
+};
+
+function createMarkers(year){
+
+  circuitURL = getCircuitURL(year);
+
+  d3.json(circuitURL).then(function (data) {
+
+    circuits = data.MRData.CircuitTable.Circuits
+    console.log(circuits[0]);
+
+    circuitIdList = []
+    circuitMarkers = []
+
+    for (let i in circuits) {
+      circuit = circuits[i]
+      if (circuitIdList.includes(circuit.circuitId) == false){
+        circuitIdList.push(circuit.circuitId);
+        // Leaflet uses lat-lon
+        circuitMarkers.push(
+          L.marker([circuit.Location.lat, circuit.Location.long]).bindPopup(`<h6>${circuit.circuitName}:<h6>${circuit.Location.locality}, ${circuit.Location.country}`)
+        )};
+    };
+      let circuitLayer = L.layerGroup(circuitMarkers);
+      createMap(circuitLayer);
+  });
+};
+
+
+//circuitLayer
+function createNewMarkers(year){
+
+console.log("create new markers")
+  circuitURL = getCircuitURL(year);
+
+  //Remove a layer from the map
+  myMap.eachLayer(function (circuitLayer) {
+    myMap.removeLayer(circuitLayer)
+}); 
+
+
+  // d3.json(circuitURL).then(function (data) {
+
+  //   circuits = data.MRData.CircuitTable.Circuits
+  //   console.log(circuits[0]);
+
+  //   circuitIdList = []
+  //   circuitMarkers = []
+
+  //   for (let i in circuits) {
+  //     circuit = circuits[i]
+  //     if (circuitIdList.includes(circuit.circuitId) == false){
+  //       circuitIdList.push(circuit.circuitId);
+  //       // Leaflet uses lat-lon
+  //       circuitMarkers.push(
+  //         L.marker([circuit.Location.lat, circuit.Location.long]).bindPopup(`<h6>${circuit.circuitName}:<h6>${circuit.Location.locality}, ${circuit.Location.country}`)
+  //       )};
+  //   };
+  //     let circuitLayer = L.layerGroup(circuitMarkers);
+
+      //Add a layer to an already create map
+  // });
 };

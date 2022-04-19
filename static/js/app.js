@@ -36,6 +36,7 @@ function init() {
   // Call on the following functions to fill out visuals for index.html
   driverList(yearList[0]);
   driverStandings(yearList[0]);
+  createMarkers(yearList[0]);
 };
 
 // This function finds the driver list for a single given year
@@ -215,6 +216,7 @@ function getYear(value){
   old_node.remove()
 
   // Run functions with the passed "value"
+  createNewMarkers(value);
   driverList(value);
   driverStandings(value);
 };
