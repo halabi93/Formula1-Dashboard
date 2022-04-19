@@ -69,8 +69,8 @@ def circuit_map():
     return render_template('circuit.html', markers = markers)
 
 
-@app.route('/avg-lap/<year>')
-def avgLapTime(year):
+@app.route('/avg-lap-time/<year>')
+def avg_lap_time(year):
     session = Session(engine)
     q = f"SELECT lap_times.race_id, races.year, races.round, AVG(lap_times.time_milli) AS avg_lap_time \
             FROM lap_times \
@@ -84,6 +84,38 @@ def avgLapTime(year):
     datadict = results.to_dict('records')
     session.close()
     return jsonify(datadict)
+
+@app.route('/avg-pit-time/<year>')
+def avg_pit_time(year):
+    session = Session(engine)
+    q = f"SELECT p.race_id, p.avg_pit_duration, r.year, r.round \
+            FROM pit_stop_duration AS p \
+                JOIN races AS r ON r.race_id=p.race_id \
+                    WHERE year={year}\
+                        ORDER BY (r.year,r.round)"
+    results = pd.read_sql(q,engine)
+    results = results.drop(["race_id", "year", "round"], axis = 1)
+    datadict = results.to_dict('records')
+    session.close()
+    return jsonify(datadict)
+
+
+@app.route('/avg-pit-time-per-driver/<year>/<first_name>/<last_name>')
+def avg_pit_time_per_driver(year, first_name, last_name):
+    session = Session(engine)
+    q = f"SELECT p.race_id, p.avg_pit_time, p.driver_id, d.first_name, d.last_name, r.year, r.round \
+            FROM pit_stop_avg_per_driver AS p \
+                JOIN races AS r ON r.race_id=p.race_id \
+                    JOIN drivers AS d ON p.driver_id=d.driver_id \
+                        WHERE (year={year} AND last_name='{last_name}' AND first_name='{first_name}')\
+                            ORDER BY (r.year,r.round)"
+    results = pd.read_sql(q,engine)
+    results = results.drop(["race_id", "driver_id", "year", "round"], axis = 1)
+    datadict = results.to_dict('records')
+    session.close()
+    return jsonify(datadict)
+
+
 
 
 
