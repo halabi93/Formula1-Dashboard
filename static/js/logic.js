@@ -33,6 +33,10 @@ let baseMaps = {
   "Terrain (from Google)": googleTerrain,
 };
 
+let overlayMaps = {
+
+};
+
 // Create a default "landing" map 
 let myMap = L.map("map", {
   center: [
@@ -44,9 +48,6 @@ let myMap = L.map("map", {
 
 let layerControl = L.control.layers(baseMaps).addTo(myMap);
 
-
-
-
 function getCircuitURL(year) {
   console.log("get circuit url")
     circuitURL = (mapAPI + year + queryCircuit);
@@ -56,10 +57,11 @@ function getCircuitURL(year) {
     return circuitURL;
 };
 
+let layer_list = [];
+
 function createMarkers(year){
 
-  // Remove previous layer
-  // layerControl.removeLayer(circuitLayer);
+  if (!layer_list.includes(`${year} Circuits`)){
 
   circuitURL = getCircuitURL(year);
 
@@ -83,4 +85,8 @@ function createMarkers(year){
       let circuitLayer = L.layerGroup(circuitMarkers);
       layerControl.addOverlay(circuitLayer, `${year} Circuits`);
   });
+
+  layer_list.push(`${year} Circuits`);
+
+  }; // End of if statement
 };

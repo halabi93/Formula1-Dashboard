@@ -148,13 +148,13 @@ function driverStandings(year){
     // console.log(seasonPoints);
 
     for(let d in driverPositions){
+      position = Number(d) + 1;
       seasonPoints.push(parseInt(driverPositions[d].points));
-
-      fullName.push(driverPositions[d].Driver.givenName + " " + driverPositions[d].Driver.familyName);
-      wins.push(driverPositions[d].wins);
+      fullName.push(`${position}. ${driverPositions[d].Driver.givenName} ${driverPositions[d].Driver.familyName}, Wins: ${driverPositions[d].wins}`);
       constructor.push(driverPositions[d].Constructors[0].name);    
     };
 
+    console.log(wins);
     //BAR CHART
     let barChart = [{
         type: "bar",
@@ -207,40 +207,88 @@ function queryGraphs (userInput) {
 
   // Create and call the query from our own API
   pit_query = "http://127.0.0.1:5000/avg-pit-time-per-driver/" + year + "/" + first_name + "/" + last_name;
-  d3.json(pit_query).then(function (data) {
+  d3.json(pit_query).then(function (pit_data) {
+
+    avg_pit_query = "http://127.0.0.1:5000/avg-pit-time/" + year;
+    d3.json(avg_pit_query).then(function (ave_pit_data) {
 
       //Get API data into usable list
+      ave_pit_times = [];
+      for (let i in ave_pit_data){
+        ave_pit_times.push(ave_pit_data[i].avg_pit_duration / 1000);
+      }
+
+      console.log(ave_pit_times);
       race_number = [];
       pit_times = [];
-      for (let i in data){
+      for (let i in pit_data){
         race_number.push(Number(i) + 1);
-        pit_times.push(data[i].avg_pit_time);
+        pit_times.push(pit_data[i].avg_pit_time / 1000);
       };
 
       console.log(pit_times);
       console.log(race_number);
 
-      let pit_line = {
+      let pit_bar = {
         //race
         x: race_number,
         y: pit_times,
-        type: 'scatter'
+        type: 'bar',
+        name: `${userInput} Pit Duration`
       };
      
-      // var trace2 = {
-      //   x: [1, 2, 3, 4],
-      //   y: [16, 5, 11, 9],
-      //   type: 'scatter'
-      // };
+      var ave_pit_bar = {
+        x: race_number,
+        y: ave_pit_times,
+        type: 'bar',
+        name: `${year} Average Pit Duration`
+      };
       
-      var graph_lines = [pit_line];
+      var graph_bars = [pit_bar, ave_pit_bar];
       
-      Plotly.newPlot('pit_line', graph_lines);
+      var pit_layout = {
+        showlegend: true,
+        legend: {
+          xanchor:"center",
+          yanchor:"top",
+          y:-0.15, // play with it
+          x:0.5   // play with it
+        },
+        title: {
+          text: `Pit Duration Comparison`,
+          // xanchor: "left",
+          // x: 250,
+          margin: {
+            l: 50
+          }},
+        height: 600,
+        width: 300,
+        // autosize: true,
+        margin: {
+          'pad': 0,
+          t: 45,
+          r: 0,
+          l: 45
+        },
+  
+        xaxis: {
+  
+          title: {
+            text: "Race Number"
+          }
+        },
+        yaxis: {
+          title: {
+            text: "Pit Duration (s)"
+          }
+        }
+        
+      };
 
+      Plotly.newPlot('pit_bar', graph_bars, pit_layout);
+
+    });
   });
-  
-  
-
 
 };
 
