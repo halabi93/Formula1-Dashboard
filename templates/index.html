@@ -94,39 +94,45 @@
         <div class="container">
             <div class="row">
 
+                <!-- Demographics DropDown -->
+                <div class="col-sm-12 col-md-3 graph bg-light">
+                    <h4>Driver Demographics</h4>
+                        <div class="well" style="min-width: 225px;">
+                            <h5>Driver Name:</h5>
+                            <select id="selDataset" onchange="optionChanged(this.value)"></select>      
+                        </div>
+                        <div class="panel panel-primary" style="min-width: 225px;">
+                            <div class="panel-heading">
+                            </div>
+                            <div id="driver-metadata" class="panel-body">
+                                
+                <!-- metadata here -->
+                            </div>
+                            <div id="wiki_link">
+                                
+                            </div>
+                        </div>  
+                </div>
+
                 <!-- Standings -->
-                <div class="col-sm-12 col-md-5 graph" id="driver_standings">
-                    <div id="standings_bar"></div>
+                <div class="col-sm-12 col-md-7 graph" id="driver_standings">
+                   <div id="standings_bar"></div>
+                </div>
+
+                <!-- Names of Circuits with race number -->
+                <div class="col-sm-12 col-md-5 graph bg-light">
+                        
+                </div>               
+
+                <div class="col-sm-12 col-md-5 graph">
+                    <div id="speed_bar"></div>                        
                 </div>
 
                 <div class="col-sm-12 col-md-5 graph">
                     <div id="pit_bar"></div>
-
                 </div>
-
-                <!-- Demographics DropDown -->
-                <div class="col-sm-12 col-md-5 graph bg-light">
-                    <h4>Driver Demographics</h4>
-                    <div class="well" style="min-width: 225px;">
-                        <h5>Driver Name:</h5>
-                        <select id="selDataset" onchange="optionChanged(this.value)"></select>      
-                    </div>
-                      <div class="panel panel-primary" style="min-width: 225px;">
-                        <div class="panel-heading">
-                        </div>
-                        <div id="driver-metadata" class="panel-body">
-                            
-              <!-- metadata here -->
-                        </div>
-                        <div id="wiki_link">
-                            
-                        </div>
-                      </div>                   
-                </div>
-
-
                 <div class="col-sm-12 col-md-5 graph">
-                    <div id="speed_bar"></div>
+                    <div id="lap_bar"></div>
                 </div>
             </div>
         </div>

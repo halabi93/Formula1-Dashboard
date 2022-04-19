@@ -171,13 +171,13 @@ function driverStandings(year){
 
       title: { text: `Driver Standings for ${year}` },
       height: 600,
-      width: 445,
+      width: 725,
       // autosize: true,
       margin: {
         'pad': 10,
         t: 45,
         r: 0,
-        l: 145
+        l: 225
       },
 
       xaxis: {
@@ -372,7 +372,7 @@ function queryGraphs (userInput) {
         
       };
 
-      Plotly.newPlot('lap_bar', graph_bars, pit_layout);
+      Plotly.newPlot('lap_bar', graph_bars, lap_layout);
 
     });
   });
@@ -416,7 +416,7 @@ function queryGraphs (userInput) {
         name: `${year} Average Fastest Lap Speed`
       };
       
-      var graph_bars = [speed_bar, ave_speed_bar];
+      var speed_bars = [speed_bar, ave_speed_bar];
       
       var lap_layout = {
         showlegend: true,
@@ -451,13 +451,13 @@ function queryGraphs (userInput) {
         },
         yaxis: {
           title: {
-            text: "Average Speed (Km/h)"
+            text: "Average Speed (km/h)"
           }
         }
         
       };
 
-      Plotly.newPlot('speed_bar', graph_bars, pit_layout);
+      Plotly.newPlot('speed_bar', speed_bars, lap_layout);
 
     });
   });

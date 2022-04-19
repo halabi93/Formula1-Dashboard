@@ -143,7 +143,7 @@ def avg_fastest_lap_speed(year):
                     WHERE year={year}\
                         ORDER BY (r.year,r.round)"
     results = pd.read_sql(q,engine)
-    results = results.drop(["race_id", "year", "round", "first_name", "last_name"], axis = 1)
+    results = results.drop(["race_id", "year", "round"], axis = 1)
     datadict = results.to_dict('records')
     session.close()
     return jsonify(datadict)
