@@ -1,5 +1,6 @@
 config.py
-config
+config*
+config.js
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -132,4 +133,5 @@ dmypy.json
 .pyre/
 
 config.py
+static/js/config.js
 static/js/config.js
