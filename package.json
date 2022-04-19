@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/emeralddawns/Project3-Formula1#readme",
   "dependencies": {
-    "pg": "^8.7.3"
+    "pg": "^8.7.3",
+    "plotly.js-dist": "^2.11.1"
   }
 }

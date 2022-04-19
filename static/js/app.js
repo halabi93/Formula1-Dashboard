@@ -290,6 +290,180 @@ function queryGraphs (userInput) {
     });
   });
 
+
+
+  // Create and call the query from our own API
+  lap_query = "http://127.0.0.1:5000/avg-lap-time-per-driver/" + year + "/" + first_name + "/" + last_name;
+  d3.json(lap_query).then(function (lap_data) {
+
+    avg_lap_query = "http://127.0.0.1:5000/avg-lap-time/" + year;
+    d3.json(avg_lap_query).then(function (ave_lap_data) {
+
+      //Get API data into usable list
+      ave_lap_times = [];
+      for (let i in ave_lap_data){
+        ave_lap_times.push(ave_lap_data[i].avg_lap_time / 1000);
+      }
+
+      console.log(ave_lap_times);
+      race_number = [];
+      lap_times = [];
+      for (let i in lap_data){
+        race_number.push(Number(i) + 1);
+        lap_times.push(lap_data[i].avg_lap_time / 1000);
+      };
+
+      console.log(lap_times);
+      console.log(race_number);
+
+      let lap_bar = {
+        //race
+        x: race_number,
+        y: lap_times,
+        type: 'bar',
+        name: `${userInput} Average Lap Time`
+      };
+     
+      var ave_lap_bar = {
+        x: race_number,
+        y: ave_lap_times,
+        type: 'bar',
+        name: `${year} Average Lap Duration`
+      };
+      
+      var graph_bars = [lap_bar, ave_lap_bar];
+      
+      var lap_layout = {
+        showlegend: true,
+        legend: {
+          xanchor:"center",
+          yanchor:"top",
+          y:-0.15, // play with it
+          x:0.5   // play with it
+        },
+        title: {
+          text: `Lap Duration Comparison`,
+          // xanchor: "left",
+          // x: 250,
+          margin: {
+            l: 50
+          }},
+        height: 600,
+        width: 300,
+        // autosize: true,
+        margin: {
+          'pad': 0,
+          t: 45,
+          r: 0,
+          l: 45
+        },
+  
+        xaxis: {
+  
+          title: {
+            text: "Race Number"
+          }
+        },
+        yaxis: {
+          title: {
+            text: "Lap Time (s)"
+          }
+        }
+        
+      };
+
+      Plotly.newPlot('lap_bar', graph_bars, pit_layout);
+
+    });
+  });
+
+  // Create and call the query from our own API
+  speed_query = "http://127.0.0.1:5000/fastest-lap-avg-speed-per-driver/" + year + "/" + first_name + "/" + last_name;
+  d3.json(speed_query).then(function (speed_data) {
+
+    avg_speed_query = "http://127.0.0.1:5000/avg-fastest-lap-speed/" + year;
+    d3.json(avg_speed_query).then(function (ave_speed_data) {
+
+      //Get API data into usable list
+      ave_speed_times = [];
+      for (let i in ave_speed_data){
+        ave_speed_times.push(ave_speed_data[i].avg_fastest_lap / 1000);
+      }
+
+      console.log(ave_speed_times);
+      race_number = [];
+      speed_times = [];
+      for (let i in speed_data){
+        race_number.push(Number(i) + 1);
+        speed_times.push(speed_data[i].fastest_lap_time / 1000);
+      };
+
+      console.log(speed_times);
+      console.log(race_number);
+
+      let speed_bar = {
+        //race
+        x: race_number,
+        y: speed_times,
+        type: 'bar',
+        name: `${userInput} Average Fastest Lap Speed`
+      };
+     
+      var ave_speed_bar = {
+        x: race_number,
+        y: ave_speed_times,
+        type: 'bar',
+        name: `${year} Average Fastest Lap Speed`
+      };
+      
+      var graph_bars = [speed_bar, ave_speed_bar];
+      
+      var lap_layout = {
+        showlegend: true,
+        legend: {
+          xanchor:"center",
+          yanchor:"top",
+          y:-0.15, // play with it
+          x:0.5   // play with it
+        },
+        title: {
+          text: `Fastest Lap Average Speed Comparison`,
+          // xanchor: "left",
+          // x: 250,
+          margin: {
+            l: 50
+          }},
+        height: 600,
+        width: 300,
+        // autosize: true,
+        margin: {
+          'pad': 0,
+          t: 45,
+          r: 0,
+          l: 45
+        },
+  
+        xaxis: {
+  
+          title: {
+            text: "Race Number"
+          }
+        },
+        yaxis: {
+          title: {
+            text: "Average Speed (Km/h)"
+          }
+        }
+        
+      };
+
+      Plotly.newPlot('speed_bar', graph_bars, pit_layout);
+
+    });
+  });
+
+
+
 };
 
 // This function runs when the user changes the year - note: no changes are made to "value" in this function
