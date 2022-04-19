@@ -1,6 +1,29 @@
-from flask import Flask, render_template, redirect, request, url_for
+from flask import Flask, jsonify , render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 import scrape_formula1
+import numpy as np
+import datetime as dt
+import sqlalchemy
+from sqlalchemy.ext.automap import automap_base
+from sqlalchemy.orm import Session
+from sqlalchemy import create_engine, func
+from config import user, password, db_name
+from sqlalchemy.sql import text, select
+import pandas as pd
+
+
+# Database Setup
+rds_connection_string = f"{user}:{password}@localhost:5432/{db_name}"
+engine = create_engine(f"postgresql://{rds_connection_string}")
+
+# Reflect an existing database and tables
+base = automap_base()
+base.prepare(engine, reflect = True)
+
+# Save reference to the tables
+session = Session(engine)
+session.close()
+
 
 # Create an instance of Flask
 app = Flask(__name__)
@@ -46,6 +69,21 @@ def circuit_map():
     return render_template('circuit.html', markers = markers)
 
 
+@app.route('/avg-lap/<year>')
+def avgLapTime(year):
+    session = Session(engine)
+    q = f"SELECT lap_times.race_id, races.year, races.round, AVG(lap_times.time_milli) AS avg_lap_time \
+            FROM lap_times \
+                JOIN races \
+                    ON races.race_id=lap_times.race_id \
+                        WHERE races.year={year} \
+                            GROUP BY (lap_times.race_id, races.year, races.round) \
+                                ORDER BY (races.round)"
+    results = pd.read_sql(q,engine)
+    results = results.drop(["race_id", "year", "round"], axis = 1)
+    datadict = results.to_dict('records')
+    session.close()
+    return jsonify(datadict)
 
 
 
@@ -80,3 +118,11 @@ if __name__ == "__main__":
 
 #     # Update the Mongo database using update and upsert=True
 #     mars.update_one({}, {"$set": formula1_data}, upsert = True)
+
+
+
+
+
+
+
+
