@@ -153,10 +153,9 @@ function driverStandings(year){
       fullName.push(driverPositions[d].Driver.givenName + " " + driverPositions[d].Driver.familyName);
       wins.push(driverPositions[d].wins);
       constructor.push(driverPositions[d].Constructors[0].name);    
-      // break;
     };
 
-    // //BAR CHART
+    //BAR CHART
     let barChart = [{
         type: "bar",
         x: seasonPoints.reverse(),
@@ -195,26 +194,38 @@ function driverStandings(year){
 
     let barConfig = {responsive: true}
 
-    Plotly.newPlot("bar", barChart, barLayout);
+    Plotly.newPlot("standings_bar", barChart, barLayout);
   })
 };
 
 function queryGraphs (userInput) {
+  console.log("query graphs");
+
   first_name = userInput.split(' ')[0];
   last_name = userInput.split(' ')[1];
   year = document.getElementById('selYear').value;
 
-  d3.json(avg_pit_time_per_driver(year, first_name, last_name)).then(function (data) {
-      // let num_races = length
-   console.log(data);
-      let pit_line = {
-        //race
-        x: [1, 2, 3, 4],
+  // Create and call the query from our own API
+  pit_query = "http://127.0.0.1:5000/avg-pit-time-per-driver/" + year + "/" + first_name + "/" + last_name;
+  d3.json(pit_query).then(function (data) {
 
-        y: [10, 15, 13, 17],
-        type: 'scatter'
+      //Get API data into usable list
+      race_number = [];
+      pit_times = [];
+      for (let i in data){
+        race_number.push(Number(i) + 1);
+        pit_times.push(data[i].avg_pit_time);
       };
 
+      console.log(pit_times);
+      console.log(race_number);
+
+      let pit_line = {
+        //race
+        x: race_number,
+        y: pit_times,
+        type: 'scatter'
+      };
      
       // var trace2 = {
       //   x: [1, 2, 3, 4],
@@ -222,13 +233,9 @@ function queryGraphs (userInput) {
       //   type: 'scatter'
       // };
       
-      var data = [trace1];
+      var graph_lines = [pit_line];
       
-      Plotly.newPlot('myDiv', data);
-
-
-
-
+      Plotly.newPlot('pit_line', graph_lines);
 
   });
   
@@ -236,11 +243,6 @@ function queryGraphs (userInput) {
 
 
 };
-
-
-
-
-
 
 // This function runs when the user changes the year - note: no changes are made to "value" in this function
 function getYear(value){
@@ -261,7 +263,7 @@ function getYear(value){
   old_node.remove()
 
   // Run functions with the passed "value"
-  createNewMarkers(value);
+  createMarkers(value);
   driverList(value);
   driverStandings(value);
 };
