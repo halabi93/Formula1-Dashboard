@@ -1,3 +1,3 @@
-password = "Zhalabi#11"
+password = ""
 user = "postgres"
 db_name = "Formula1"
