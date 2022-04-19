@@ -3,6 +3,14 @@
 let mapAPI = "http://ergast.com/api/f1/";
 let queryCircuit = "/circuits.json";
 
+// Create a default "landing" map 
+let myMap = L.map("map", {
+  center: [
+    25, 0
+  ],
+  zoom: 2,
+  // layers: [googleTerrain, circuitLayer]
+});
 
 function createMap(circuitLayer) {
   
@@ -40,19 +48,11 @@ function createMap(circuitLayer) {
     "Circuits": circuitLayer,
   };
 
-  // Create a default "landing" map 
-  let myMap = L.map("map", {
-    center: [
-      25, 0
-    ],
-    zoom: 2,
-    layers: [googleTerrain, circuitLayer]
-  });
+  //myMap was originally here
 
   L.control.layers(baseMaps, overlayMaps).addTo(myMap); 
   // {collapsed: true}
 };
-
 
 function getCircuitURL(year) {
   console.log("get circuit url")
@@ -89,17 +89,20 @@ function createMarkers(year){
   });
 };
 
-
 //circuitLayer
 function createNewMarkers(year){
 
+  var marker = L.marker([0, 0]).addTo(map).bindPopup(`<b>Hello world!</b><br />The year changed to ${year}`);
+
+
 console.log("create new markers")
-  circuitURL = getCircuitURL(year);
+  // circuitURL = getCircuitURL(year);
 
   //Remove a layer from the map
-  myMap.eachLayer(function (circuitLayer) {
-    myMap.removeLayer(circuitLayer)
-}); 
+  // myMap.removeLayer(circuitLayer);
+//   myMap.eachLayer(function (circuitLayer) {
+//     myMap.removeLayer(circuitLayer)
+// }); 
 
 
   // d3.json(circuitURL).then(function (data) {
