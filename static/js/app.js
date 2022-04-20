@@ -457,7 +457,7 @@ function queryGraphs (userInput) {
       // Fill out the circuit list
       for (let i = (circuit_names.length - 1); i>= 0; i--){
         circuit_node = document.getElementById('circuit-list');
-        circuit_node.insertAdjacentHTML('afterbegin', `<ul id = "circuit-item">Circuit ${Number(i) + 1}: ${circuit_names[i]}</ul>`);
+        circuit_node.insertAdjacentHTML('afterbegin', `<ul id = "circuit-item">&emsp; Circuit ${Number(i) + 1}: ${circuit_names[i]}</ul>`);
       };
     });
   });

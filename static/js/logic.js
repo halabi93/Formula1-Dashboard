@@ -37,7 +37,7 @@ let overlayMaps = {
 
 };
 
-// Create a default "landing" map 
+// Create the map the shows at page start-up 
 let myMap = L.map("map", {
   center: [
     25, 0
@@ -86,7 +86,32 @@ function createMarkers(year){
       layerControl.addOverlay(circuitLayer, `${year} Circuits`);
   });
 
+  // Push layer to the map
   layer_list.push(`${year} Circuits`);
 
+  // Check and uncheck correct boxes
+  checkBoxes(year);
+
   }; // End of if statement
+};
+
+function checkBoxes(year){
+  console.log("checkboxes fcn");
+  var ele=document.getElementsByTagName('input');  
+  console.log(ele);
+  list_o_checks = [];
+  
+  for(var i=0; i<ele.length; i++){  
+    if(ele[i].type=='checkbox'){  
+        list_o_checks.push(i)
+      };  
+  };
+
+console.log(list_o_checks);
+
+  // for(var i=0; i<ele.length; i++){  
+  //     if(ele[i].type=='checkbox'){  
+  //         ele[i].checked=true;  
+  //     };
+  // };
 };

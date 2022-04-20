@@ -7,21 +7,24 @@ body {
 /* Set map, body, and html to 100% of the screen size. */
 body,
 html {
+  /* background-color: black; */
   height: 100%;
 }
 
 #map{
   height: 100%;
+  width: auto;
   /* border: 2px solid black;
   margin: 2%;
   border-radius: 2%  */
 }
 
 .map-graph {
+  overflow: hidden;
   border: 2px solid black;
   min-height: 300pt;
   max-width: 1000px;
-  margin: 2%;
+  margin: 1%;
   border-radius: 2%
 }
 
@@ -68,7 +71,7 @@ h3 {
 }
 
 #circuit-list{
-  height: 350pt;
+  height: 300pt;
   Overflow-y: scroll;
 }
 
