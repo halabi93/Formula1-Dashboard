@@ -386,14 +386,14 @@ function queryGraphs (userInput) {
       
       for (let i in ave_speed_data){
         circuit_names.push(ave_speed_data[i].name);
-        ave_speed_times.push(ave_speed_data[i].avg_fastest_lap / 1000);
+        ave_speed_times.push(ave_speed_data[i].avg_fastest_lap);
       }
 
       race_number = [];
       speed_times = [];
       for (let i in speed_data){
         race_number.push(Number(i) + 1);
-        speed_times.push(speed_data[i].fastest_lap_time / 1000);
+        speed_times.push(speed_data[i].fastest_lap_time);
       };
 
       let speed_bar = {
