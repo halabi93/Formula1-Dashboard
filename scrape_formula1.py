@@ -36,14 +36,26 @@ def scrape_info():
     results_link = soup.find('section', class_='contentFeed').find('section').find('section').find('a')['href']
     espn_link = link_prefix + results_link
 
+    # Article from motorsport.com dedicated F1 page
+    url = "https://www.motorsport.com/f1/news/"
+    link_prefix = "https://www.motorsport.com/"
+    browser.visit(url)
+    html = browser.html
+    soup = bs(html, 'html.parser')
+    motorsport_title = soup.find_all('a', class_='ms-item_link')[0]["title"]
+    results_link = soup.find_all('a', class_='ms-item_link')[0]["href"]
+    motorsport_link = link_prefix + results_link
+
     # Store data in dictionary
     formula1_data = {
         "f1_title": f1_title,
         "f1_link": f1_link,
         "espn_title": espn_title,
         "espn_link": espn_link,
-         "f1_bonus": f1_bonus,
-        "bonus_title": bonus_title,
+        "bonus_title": bonus_title,        
+        "f1_bonus": f1_bonus,
+        "motorsport_title": motorsport_title,
+        "motorsport_link": motorsport_link
    }
 
     # Close the browser after scraping

@@ -169,8 +169,8 @@ function driverStandings(year){
     let barLayout = {
 
       title: { text: `Driver Standings for ${year}` },
-      height: 600,
-      width: 725,
+      // height: 600,
+      // width: 725,
       // autosize: true,
       margin: {
         'pad': 10,
@@ -262,8 +262,8 @@ function queryGraphs (userInput) {
           margin: {
             l: 50
           }},
-        height: 600,
-        width: 300,
+        // height: 600,
+        // width: 300,
         // autosize: true,
         margin: {
           'pad': 0,
@@ -285,13 +285,10 @@ function queryGraphs (userInput) {
         }
         
       };
-
-      Plotly.newPlot('pit_bar', graph_bars, pit_layout);
-
+      var pit_config = {responsive: true}
+      Plotly.newPlot('pit_bar', graph_bars, pit_layout, pit_config);
     });
   });
-
-
 
   // Create and call the query from our own API
   lap_query = "http://127.0.0.1:5000/avg-lap-time-per-driver/" + year + "/" + first_name + "/" + last_name;
@@ -345,8 +342,8 @@ function queryGraphs (userInput) {
           margin: {
             l: 50
           }},
-        height: 600,
-        width: 300,
+        // height: 600,
+        // width: 300,
         // autosize: true,
         margin: {
           'pad': 0,
@@ -366,11 +363,9 @@ function queryGraphs (userInput) {
             text: "Lap Time (s)"
           }
         }
-        
       };
-
-      Plotly.newPlot('lap_bar', graph_bars, lap_layout);
-
+      var lap_config = {responsive: true}
+      Plotly.newPlot('lap_bar', graph_bars, lap_layout, lap_config);
     });
   });
 
@@ -413,7 +408,7 @@ function queryGraphs (userInput) {
       
       var speed_bars = [speed_bar, ave_speed_bar];
       
-      var lap_layout = {
+      var speed_layout = {
         showlegend: true,
         legend: {
           xanchor:"center",
@@ -428,8 +423,8 @@ function queryGraphs (userInput) {
           margin: {
             l: 50
           }},
-        height: 600,
-        width: 300,
+        // height: 600,
+        // width: 300,
         // autosize: true,
         margin: {
           'pad': 0,
@@ -451,19 +446,22 @@ function queryGraphs (userInput) {
         }
         
       };
-      console.log(circuit_names);
-      Plotly.newPlot('speed_bar', speed_bars, lap_layout);
+      var speed_config = {responsive: true}
+      Plotly.newPlot('speed_bar', speed_bars, speed_layout, speed_config);
 
+      // Remove old circuit list
+      old_circuits = document.querySelectorAll('#circuit-item');
+      old_circuits.forEach(item => {
+        item.remove();
+      });
       // Fill out the circuit list
-      for (let i in circuit_names){
+      for (let i = (circuit_names.length - 1); i>= 0; i--){
         circuit_node = document.getElementById('circuit-list');
-        circuit_node.insertAdjacentHTML('afterend', `<ul>Circuit ${Number(i) + 1}: ${circuit_names[i]}</ul>`);
+        circuit_node.insertAdjacentHTML('afterbegin', `<ul id = "circuit-item">Circuit ${Number(i) + 1}: ${circuit_names[i]}</ul>`);
       };
     });
   });
 };
-
-
 
 // This function runs when the user changes the year - note: no changes are made to "value" in this function
 function getYear(value){
