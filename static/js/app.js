@@ -143,7 +143,6 @@ function driverStandings(year){
   
     let seasonPoints = [];
     let fullName = [];
-    let wins = [];
     let constructor = [];
     // console.log(seasonPoints);
 
@@ -169,9 +168,9 @@ function driverStandings(year){
     let barLayout = {
 
       title: { text: `Driver Standings for ${year}` },
-      // height: 600,
+      height: 600,
       // width: 725,
-      // autosize: true,
+      autosize: true,
       margin: {
         'pad': 10,
         t: 45,
@@ -235,14 +234,20 @@ function queryGraphs (userInput) {
         x: race_number,
         y: pit_times,
         type: 'bar',
-        name: `${userInput} Pit Duration`
+        name: `${userInput} Pit Duration`,
+        marker: {
+          color: 'rgb(255, 24, 1)'
+        }
       };
      
       var ave_pit_bar = {
         x: race_number,
         y: ave_pit_times,
         type: 'bar',
-        name: `${year} Average Pit Duration`
+        name: `${year} Average Pit Duration`,
+        marker: {
+          color: 'black'
+        }
       };
       
       var graph_bars = [pit_bar, ave_pit_bar];
@@ -315,14 +320,20 @@ function queryGraphs (userInput) {
         x: race_number,
         y: lap_times,
         type: 'bar',
-        name: `${userInput} Average Lap Time`
+        name: `${userInput} Average Lap Time`,
+        marker: {
+          color: 'rgb(255, 24, 1)'
+        }
       };
      
       var ave_lap_bar = {
         x: race_number,
         y: ave_lap_times,
         type: 'bar',
-        name: `${year} Average Lap Duration`
+        name: `${year} Average Lap Duration`, 
+        marker: {
+          color: 'black'
+        }
       };
       
       var graph_bars = [lap_bar, ave_lap_bar];
@@ -396,14 +407,20 @@ function queryGraphs (userInput) {
         x: race_number,
         y: speed_times,
         type: 'bar',
-        name: `${userInput} Average Fastest Lap Speed`
+        name: `${userInput} Average Fastest Lap Speed`,
+        marker: {
+          color: '#339966'
+        }
       };
      
       var ave_speed_bar = {
         x: race_number,
         y: ave_speed_times,
         type: 'bar',
-        name: `${year} Average Fastest Lap Speed`
+        name: `${year} Average Fastest Lap Speed`,
+        marker: {
+          color: '#800080'
+        }
       };
       
       var speed_bars = [speed_bar, ave_speed_bar];

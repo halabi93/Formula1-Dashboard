@@ -23,7 +23,7 @@ html {
   overflow: hidden;
   border: 2px solid black;
   min-height: 300pt;
-  max-width: 1000px;
+  /* max-width: 1000px; */
   margin: 1%;
   border-radius: 2%
 }
@@ -62,8 +62,8 @@ html {
 }
 
 #driver_standings {
-  min-height: 350pt;
-  min-width: 350pt;
+  min-height: 375pt;
+  /* min-width: 350pt; */
 }
 
 h3 {
