@@ -198,9 +198,16 @@ FROM results AS r
 GROUP BY (r.race_id, r.driver_id)
 ORDER BY (fastest_lap_time) DESC
 
-
+CREATE TABLE all_races (
+"Circuit" TEXT,
+	"1" TEXT
+)
 --------------------------------------
-SELECT * FROM lap_times WHERE race_id=847
+SELECT * FROM all_races
+
+SELECT "1", COUNT ("1") AS "Total_Wins" FROM "all_races" 
+GROUP BY "1"
+ORDER BY "Total_Wins" DESC
 
 SELECT * FROM pit_stops
 
