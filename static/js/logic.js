@@ -84,6 +84,7 @@ function createMarkers(year){
     };
       let circuitLayer = L.layerGroup(circuitMarkers);
       layerControl.addOverlay(circuitLayer, `${year} Circuits`);
+      circuitLayer.addTo(myMap);
   });
 
   // Push layer to the map
@@ -94,6 +95,7 @@ function createMarkers(year){
 
   }; // End of if statement
 };
+
 
 function checkBoxes(year){
   console.log("checkboxes fcn");

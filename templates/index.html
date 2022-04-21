@@ -36,7 +36,7 @@
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Plots
+                Additional Information
                 </a>
                 <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDropdown">
                     <!-- <li><a class="dropdown-item" href="maxtemp.html">Maximum Temperature</a></li>
@@ -60,7 +60,7 @@
     </nav>
 
 <!-- Our rows function in containers (grid created). -->
-<div class="container" id="currentNews">
+<div class="container-fluid" id="currentNews">
         <!--Normally these medium columns go full wide on small screen sizes-->
         <div class="row">
           <div class="col-md-3">
@@ -69,7 +69,7 @@
                 <a href="{{ formula1.f1_link}}"><p class = "text-center">{{ formula1.f1_title }}</p> </a>
             </div>
           </div>
-          <div class="col-md-3 float-left">
+          <div class="col-md-3">
             <div class="box" id ="espn_news">
                 <p class = "text-center"><a href = "https://www.formula1.com/">Formula 1</a> Calendar:</p>                  
                 <a href="{{ formula1.f1_bonus}}"><p class = "text-center">{{ formula1.bonus_title }}</p> </a>
@@ -91,13 +91,13 @@
   </div>
 
   <div id = "Visualizations">
-    <div class="container">
+    <div class="container-fluid px-0">
         <select id="selYear" onchange="getYear(this.value)"></select><h3 class = "text-center" id = "season-info">Season Information</h3>
-        <div class="container" id = "main-graphs">
+        <div class="container-fluid" id = "main-graphs">
             <div class="row">
 
                 <!-- Demographics DropDown -->
-                <div class="col-sm-12 col-md-3 graph bg-light">
+                <div class="col-sm-12 col-md-3 graph bg-light" id = "driver-dropdown">
                     <h4>Driver Demographics</h4>
                         <div class="well" style="min-width: 250px;">
                             <h5>Driver Name:</h5>
@@ -117,36 +117,48 @@
                 </div>
 
                 <!-- Standings -->
-                <div class="col-sm-12 col-md-7 graph bg-white" id="driver_standings">
+                <div class="col-sm-12 col-md-8 graph bg-white" id="driver_standings">
                    <div id="standings_bar"></div>
                 </div>
+            </div>
 
+                <!-- Circuit Map -->
+            <div class = "row" id = "leaflet-section">
+                <div class = "col-sm-11 map-graph bg-white">
+                    <div id="map" class = "leaflet-container leaflet-fade-anim leaflet-grab leaflet-touch-drag" tabindex = "0" style = "position:relative;"></div>
+                </div>
+            </div>
+           
                 <!-- Names of Circuits with race number -->
-                <div class="col-sm-12 col-md-5 graph bg-light">
+            <div class = "row justify-content-center">
+                <div class="col-sm-12 col-md-4 graph bg-light">
                     <p id="p-circuits"></p>
                     <div id="circuit-list"></div>
                 </div>               
 
-                <div class="col-sm-12 col-md-5 graph bg-white">
+                <div class="col-sm-12 col-md-6 graph bg-white">
                     <div id="speed_bar"></div>                        
                 </div>
 
                 <div class="col-sm-12 col-md-5 graph bg-white">
                     <div id="pit_bar"></div>
                 </div>
+
                 <div class="col-sm-12 col-md-5 graph bg-white">
                     <div id="lap_bar"></div>
                 </div>
             </div>
-        </div>
 
-        <div class="container" id = "leaflet-section">
+        </div> 
+        <!-- End of Container -->
+
+        <!-- <div class="container" id = "leaflet-section">
             <div class = "row">
                 <div class = "col-sm-11 map-graph bg-white">
                     <div id="map" class = "leaflet-container leaflet-fade-anim leaflet-grab leaflet-touch-drag" tabindex = "0" style = "position:relative;"></div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         
         <!-- Leaflet JS -->
