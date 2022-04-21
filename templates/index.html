@@ -93,18 +93,17 @@
   <div id = "Visualizations">
     <div class="container">
         <select id="selYear" onchange="getYear(this.value)"></select><h3 class = "text-center" id = "season-info">Season Information</h3>
-        <hr>
-        <div class="container">
+        <div class="container" id = "main-graphs">
             <div class="row">
 
                 <!-- Demographics DropDown -->
                 <div class="col-sm-12 col-md-3 graph bg-light">
                     <h4>Driver Demographics</h4>
-                        <div class="well" style="min-width: 225px;">
+                        <div class="well" style="min-width: 250px;">
                             <h5>Driver Name:</h5>
                             <select id="selDataset" onchange="optionChanged(this.value)"></select>      
                         </div>
-                        <div class="panel panel-primary" style="min-width: 225px;">
+                        <div class="panel panel-primary" style="min-width: 250px;">
                             <div class="panel-heading">
                             </div>
                             <div id="driver-metadata" class="panel-body">
@@ -118,32 +117,32 @@
                 </div>
 
                 <!-- Standings -->
-                <div class="col-sm-12 col-md-7 graph" id="driver_standings">
+                <div class="col-sm-12 col-md-7 graph bg-white" id="driver_standings">
                    <div id="standings_bar"></div>
                 </div>
 
                 <!-- Names of Circuits with race number -->
                 <div class="col-sm-12 col-md-5 graph bg-light">
-                    <p>The following list can by used to match race numbers with the corresponding circuit in the next three graphs:</p>
+                    <p>The following list can by used to match race numbers with the corresponding circuit for the next three graphs:</p>
                     <div id="circuit-list"></div>
                 </div>               
 
-                <div class="col-sm-12 col-md-5 graph">
+                <div class="col-sm-12 col-md-5 graph bg-white">
                     <div id="speed_bar"></div>                        
                 </div>
 
-                <div class="col-sm-12 col-md-5 graph">
+                <div class="col-sm-12 col-md-5 graph bg-white">
                     <div id="pit_bar"></div>
                 </div>
-                <div class="col-sm-12 col-md-5 graph">
+                <div class="col-sm-12 col-md-5 graph bg-white">
                     <div id="lap_bar"></div>
                 </div>
             </div>
         </div>
 
-        <div class="container">
+        <div class="container" id = "leaflet-section">
             <div class = "row">
-                <div class = "col-sm-11 map-graph">
+                <div class = "col-sm-11 map-graph bg-white">
                     <div id="map" class = "leaflet-container leaflet-fade-anim leaflet-grab leaflet-touch-drag" tabindex = "0" style = "position:relative;"></div>
                 </div>
             </div>

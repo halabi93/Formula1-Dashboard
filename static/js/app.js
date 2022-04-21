@@ -384,7 +384,7 @@ function queryGraphs (userInput) {
       };
       var lap_config = {responsive: true}
 
-      if(year>1997){
+      if(year>1995){
         Plotly.newPlot('lap_bar', graph_bars, lap_layout, lap_config);
       }
       else{
@@ -479,7 +479,7 @@ function queryGraphs (userInput) {
       };
       var speed_config = {responsive: true}
 
-      if(year>1995){
+      if(year>1997){
         Plotly.newPlot('speed_bar', speed_bars, speed_layout, speed_config);
       }
       else{

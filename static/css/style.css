@@ -7,9 +7,16 @@ body {
 /* Set map, body, and html to 100% of the screen size. */
 body,
 html {
-  /* background-color: black; */
   height: 100%;
+  margin:0;
+  padding:0;
 }
+
+.container{
+  margin:0;
+  padding:0;
+}
+
 
 #map{
   height: 100%;
@@ -49,9 +56,9 @@ html {
 }
 
 #Visualizations{
-  margin: 2%;
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;   
+  /* margin: 2%; */
+  padding-top: 1rem;
+  padding-bottom: 1rem;   
 }
 
 .graph {
@@ -82,39 +89,10 @@ h3 {
   padding: 0.1em;
 }
 
-
-
-
-
-
-
-
-
-
-
-#dashboardSection {
-  border: 1;
-  border-radius: calc(5px);
-  border-color: #FF1801;
+#main-graphs {
+  background-color:black;
 }
 
-
-.articles {
-  /* top: 0px;
-  left: 0px; */
-  border: 1;
-  border-radius: calc(5px);
-  border-color: #FF1801;
-}
-
-
-.topTweets {
-  border: 1;
-  border-radius: calc(5px);
-  border-color: #FF1801;
-}
-
-
-.btn{
-  color: #FF1801;
+#leaflet-section{
+  background-color:black;  
 }
