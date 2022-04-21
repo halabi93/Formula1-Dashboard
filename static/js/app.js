@@ -291,6 +291,14 @@ function queryGraphs (userInput) {
         
       };
       var pit_config = {responsive: true}
+
+      if(year > 1997){
+        Plotly.newPlot('speed_bar', speed_bars, speed_layout, speed_config);
+      }
+      else{
+        document.write("This data was never recorded!!!");
+      }
+
       Plotly.newPlot('pit_bar', graph_bars, pit_layout, pit_config);
     });
   });
@@ -376,7 +384,13 @@ function queryGraphs (userInput) {
         }
       };
       var lap_config = {responsive: true}
-      Plotly.newPlot('lap_bar', graph_bars, lap_layout, lap_config);
+      if(year > 1997){
+        Plotly.newPlot('lap_bar', graph_bars, lap_layout, lap_config);
+      }
+      else{
+        document.write("This data was never recorded!!!");
+      }
+      
     });
   });
 
@@ -464,7 +478,15 @@ function queryGraphs (userInput) {
         
       };
       var speed_config = {responsive: true}
-      Plotly.newPlot('speed_bar', speed_bars, speed_layout, speed_config);
+
+      if(year > 1997){
+        Plotly.newPlot('speed_bar', speed_bars, speed_layout, speed_config);
+      }
+      else{
+        document.write("This data was never recorded!!!");
+      }
+
+      
 
       // Remove old circuit list
       old_circuits = document.querySelectorAll('#circuit-item');
