@@ -291,7 +291,14 @@ function queryGraphs (userInput) {
         
       };
       var pit_config = {responsive: true}
-      Plotly.newPlot('pit_bar', graph_bars, pit_layout, pit_config);
+
+      if(year>2010){
+        Plotly.newPlot('pit_bar', graph_bars, pit_layout, pit_config);
+      }
+      else{
+        document.getElementById("pit_bar").innerHTML = "This data was never recorded!!!";
+      }
+      
     });
   });
 
@@ -376,7 +383,14 @@ function queryGraphs (userInput) {
         }
       };
       var lap_config = {responsive: true}
-      Plotly.newPlot('lap_bar', graph_bars, lap_layout, lap_config);
+
+      if(year>1997){
+        Plotly.newPlot('lap_bar', graph_bars, lap_layout, lap_config);
+      }
+      else{
+        document.getElementById("lap_bar").innerHTML = "This data was never recorded!!!";
+      }
+      
     });
   });
 
@@ -464,7 +478,15 @@ function queryGraphs (userInput) {
         
       };
       var speed_config = {responsive: true}
-      Plotly.newPlot('speed_bar', speed_bars, speed_layout, speed_config);
+
+      if(year>1995){
+        Plotly.newPlot('speed_bar', speed_bars, speed_layout, speed_config);
+      }
+      else{
+        document.getElementById("speed_bar").innerHTML = "This data was never recorded!!!";
+      }
+
+      
 
       // Remove old circuit list
       old_circuits = document.querySelectorAll('#circuit-item');
@@ -472,10 +494,13 @@ function queryGraphs (userInput) {
         item.remove();
       });
       // Fill out the circuit list
-      for (let i = (circuit_names.length - 1); i>= 0; i--){
-        circuit_node = document.getElementById('circuit-list');
-        circuit_node.insertAdjacentHTML('afterbegin', `<ul id = "circuit-item">&emsp; Circuit ${Number(i) + 1}: ${circuit_names[i]}</ul>`);
-      };
+      if(year>1995){
+        for (let i = (circuit_names.length - 1); i>= 0; i--){
+          circuit_node = document.getElementById('circuit-list');
+          circuit_node.insertAdjacentHTML('afterbegin', `<ul id = "circuit-item">&emsp; Circuit ${Number(i) + 1}: ${circuit_names[i]}</ul>`);
+        };
+      }
+
     });
   });
 };
