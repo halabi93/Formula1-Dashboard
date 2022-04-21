@@ -43,6 +43,7 @@ let myMap = L.map("map", {
     25, 0
   ],
   zoom: 2,
+  scrollWheelZoom: false,
   layers: [googleTerrain]
 });
 

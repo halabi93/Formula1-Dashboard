@@ -23,7 +23,7 @@ html {
 }
 
 #main-graphs {
-  background-color:black;
+  background-color:#121212;
   align-items: center;  
 }
 
@@ -39,7 +39,7 @@ html {
 
 .map-graph {
   overflow: hidden;
-  border: 4px solid black;
+  border: 4px solid #121212;
   min-height: 300pt;
   /* max-width: 1000px; */
   margin-left: auto;
@@ -55,7 +55,7 @@ html {
 }
 
 #header {
-  border-bottom: 3px solid black;
+  border-bottom: 3px solid #121212;
 }
 
 .box {
@@ -63,7 +63,7 @@ html {
   padding: 5px;
   margin: 2%;
   font-weight: 800;
-  color: black;
+  color: #121212;
 }
 
 #Visualizations{
@@ -73,7 +73,7 @@ html {
 }
 
 .graph {
-  border: 2px solid black;
+  border: 2px solid #121212;
   min-height: 300pt;
   margin: 2%;
   border-radius: 2%
@@ -108,5 +108,5 @@ h3 {
 
 
 #leaflet-section{
-  background-color:black;  
+  background-color:#121212;  
 }
