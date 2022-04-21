@@ -494,12 +494,17 @@ function queryGraphs (userInput) {
         item.remove();
       });
       // Fill out the circuit list
+
       if(year>1995){
-        for (let i = (circuit_names.length - 1); i>= 0; i--){
-          circuit_node = document.getElementById('circuit-list');
-          circuit_node.insertAdjacentHTML('afterbegin', `<ul id = "circuit-item">&emsp; Circuit ${Number(i) + 1}: ${circuit_names[i]}</ul>`);
-        };
+        document.getElementById("p-circuits").innerHTML = "The following list can by used to match race numbers with the corresponding circuit for the next three graphs:"
       }
+      else{
+        document.getElementById("p-circuits").innerHTML = "The following list shows where races took place"
+      }
+      for (let i = (circuit_names.length - 1); i>= 0; i--){
+        circuit_node = document.getElementById('circuit-list');
+        circuit_node.insertAdjacentHTML('afterbegin', `<ul id = "circuit-item">&emsp; Circuit ${Number(i) + 1}: ${circuit_names[i]}</ul>`);
+      };
 
     });
   });
