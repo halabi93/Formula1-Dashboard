@@ -56,17 +56,11 @@ def scrape():
     # Redirect back to home page
     return redirect("/", code=302)
 
-@app.route('/circuit', methods=['GET', 'POST'])
-def circuit_map():
-    markers=[
-            {
-            'lat':0,
-            'lon':0,
-            'popup':'This is the middle of the map.'
-            }
-        ]
+@app.route('/history')
+def go_to_hist():
+
     # show the form, it wasn't submitted
-    return render_template('circuit.html', markers = markers)
+    return render_template('history.html')
 
 
 @app.route('/avg-lap-time/<year>')

@@ -24,7 +24,7 @@
 <!-- NavBar edited from template provided by https://getbootstrap.com/docs/5.0/components/navbar/-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light" id = "header">
         <div class="container-fluid">
-        <a class="navbar-brand text-white" href="index.html" role="button">Return to Dashboard</a>
+        <a class="navbar-brand text-white" href="/" role="button">Return to Dashboard</a>
         
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -47,21 +47,21 @@
             </li>
     </nav>
 
-    <div class="container">
-        <div class="row">
+    <div class="container-fluid px-0" id = "hist-graphs">
+        <div class="row justify-content-center">
 
-            <div class="col-sm-12 col-md-6 graph">
-                <a href="maxtemp.html" class="text-decoration-none"><h4 class="text-center">vs. Max Temperature</h4></a>
-                <a href="maxtemp.html"><img src="assets/images/MaxTvsLat.svg" class="img-fluid" title="Maximum Temperature vs Latitude" alt="Maximum Temperature vs Latitude"></a>
+            <div class="col-sm-12 col-md-5 graph bg-white" id = "top-drivers">
+                <h4 class="text-center">Top 10 Drivers</h4>
+                <img src="static/images/Top10Drivers.svg" class="img-fluid" title="Top 10 Drivers" alt="Top 10 Drivers">
             </div>
-            <div class="col-sm-12 col-md-6 graph">
-                <a href="humidity.html" class="text-decoration-none"><h4 class="text-center">vs. Humidity</h4></a>
-                <a href="humidity.html"><img src="assets/images/HumVsLat.svg" class="img-fluid" title="Humidity vs Latitude" alt="Humidity vs Latitude"></a>
+            <div class="col-sm-12 col-md-5 graph bg-white" id = "top-tracks">
+                <h4 class="text-center">Top 15 Most Used Tracks</h4>
+                <img src="static/images/Top15MostusedTracks.svg" class="img-fluid" title="Top 15 Most Used Tracks" alt="Top 15 Most Used Tracks">
             </div>
-            <!-- <div class="col-sm-12 col-md-6 graph">
-                <a href="cloudiness.html" class="text-decoration-none"><h4 class="text-center">vs. Cloudiness</h4></a>                
-                <a href="cloudiness.html"><img src="assets/images/CloudVsLat.svg" class="img-fluid" title="Cloudiness vs Latitude" alt="Cloudiness vs Latitude"></a>
-            </div> -->
+            <div class="col-sm-12 col-md-6 graph bg-white" id = "top-constructors">
+                <h4 class="text-center">Top 10 Constructors</h4>                
+                <img src="static/images/Top10Constructors.svg" class="img-fluid" title="Top 10 Constructors" alt="Top 10 Constructors">
+            </div>
 
         </div>
     </div>

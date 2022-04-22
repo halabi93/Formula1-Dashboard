@@ -106,7 +106,15 @@ h3 {
   padding: 0.1em;
 }
 
-
 #leaflet-section{
   background-color:#121212;  
+}
+
+#hist-graphs{
+  background-color:#121212;  
+}
+#top-drivers,
+#top-tracks,
+#top-constructors{
+  margin-top: 2%;
 }
