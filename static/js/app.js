@@ -292,11 +292,15 @@ function queryGraphs (userInput) {
       };
       var pit_config = {responsive: true}
 
-      if(year>2010){
+      // pit_year is where the pit data actually begins
+      let pit_year = 2011;
+      if(year >= pit_year){
+        // If there is data, ensure there is no text in the plot's spot, and display the plot
+        document.getElementById("pit_bar").innerHTML = "";
         Plotly.newPlot('pit_bar', graph_bars, pit_layout, pit_config);
       }
       else{
-        document.getElementById("pit_bar").innerHTML = "This data was never recorded!!!";
+        document.getElementById("pit_bar").innerHTML = `Pit stop data is not available prior to ${pit_year}!!!`;
       }
       
     });
@@ -384,11 +388,15 @@ function queryGraphs (userInput) {
       };
       var lap_config = {responsive: true}
 
-      if(year>1995){
+      // lap_year is where the lap data actually begins
+      let lap_year = 1996;
+      if(year >= lap_year){
+        // If there is data, ensure there is no text in the plot's spot, and display the plot
+        document.getElementById("lap_bar").innerHTML = "";
         Plotly.newPlot('lap_bar', graph_bars, lap_layout, lap_config);
       }
       else{
-        document.getElementById("lap_bar").innerHTML = "This data was never recorded!!!";
+        document.getElementById("lap_bar").innerHTML = `Lap time data is not available prior to ${lap_year}!!!`;
       }
       
     });
@@ -479,11 +487,15 @@ function queryGraphs (userInput) {
       };
       var speed_config = {responsive: true}
 
-      if(year>1997){
+      // fastest_year is where the fastest lap data actually begins
+      let fastest_year = 2004;
+      if(year >= fastest_year){
+        // If there is data, ensure there is no text in the plot's spot, and display the plot
+        document.getElementById("speed_bar").innerHTML = "";
         Plotly.newPlot('speed_bar', speed_bars, speed_layout, speed_config);
       }
       else{
-        document.getElementById("speed_bar").innerHTML = "This data was never recorded!!!";
+        document.getElementById("speed_bar").innerHTML = `Fastest lap timings are not available prior to ${fastest_year}!!!`;
       }
 
       

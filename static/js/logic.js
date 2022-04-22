@@ -44,7 +44,7 @@ let myMap = L.map("map", {
   ],
   zoom: 2,
   scrollWheelZoom: false,
-  layers: [googleTerrain]
+  layers: [googleHybrid]
 });
 
 let layerControl = L.control.layers(baseMaps).addTo(myMap);
