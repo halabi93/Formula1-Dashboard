@@ -21,143 +21,127 @@
     </head>
     <body>
   
-<!-- NavBar edited from template provided by https://getbootstrap.com/docs/5.0/components/navbar/-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" id = "header">
-        <div class="container-fluid">
-        <a class="navbar-brand text-white" href="/scrape" role="button">Update Current News</a>
-        
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <h1>Formula 1 Information Dashboard</h1>
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+    <!-- NavBar edited from template provided by https://getbootstrap.com/docs/5.0/components/navbar/-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" id = "header">
+            <div class="container-fluid">
+            <a class="navbar-brand text-white" href="/scrape" role="button">Update Current News</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <h1>Formula 1 Information Dashboard</h1>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Additional Information
-                </a>
-                <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="/history">Race History</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Additional Information
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/history">Race History</a></li>
+                    </ul>
+                </li>
+
                 </ul>
-            </li>
-
-            <li class="nav-item">
-                <!-- <a class="nav-link" href="comparisons.html">Comparisons</a> -->
-            </li>
-
-            <li class="nav-item">
-                <!-- <a class="nav-link" href="data.html">Data</a> -->
-            </li>
-
-            </ul>
-        </div>
-        </div>
-    </nav>
-
-<!-- Our rows function in containers (grid created). -->
-<div class="container-fluid" id="currentNews">
-        <!--Normally these medium columns go full wide on small screen sizes-->
-        <div class="row">
-          <div class="col-md-3">
-            <div class="box" id ="f1_news">
-                <p class = "text-center"><a href = "https://www.formula1.com/">Formula 1</a> Featured Article:</p>                  
-                <a href="{{ formula1.f1_link}}"><p class = "text-center">{{ formula1.f1_title }}</p> </a>
             </div>
-          </div>
-          <div class="col-md-3">
-            <div class="box" id ="espn_news">
-                <p class = "text-center"><a href = "https://www.formula1.com/">Formula 1</a> Calendar:</p>                  
-                <a href="{{ formula1.f1_bonus}}"><p class = "text-center">{{ formula1.bonus_title }}</p> </a>
             </div>
-          </div>
-          <div class="col-md-3">
-            <div class="box" id = "espn-news">
-                <p class = "text-center"><a href = "https://www.espn.com/f1/">ESPN</a> Featured Article:</p>                  
-                <a href="{{ formula1.espn_link}}"><p class = "text-center">{{ formula1.espn_title }}</p> </a>                
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="box" id = "motorsport-news">
-                <p class = "text-center"><a href = "https://www.motorsport.com/f1/news/">Motorsport</a> Featured Article:</p>                  
-                <a href="{{ formula1.motorsport_link}}"><p class = "text-center">{{ formula1.motorsport_title }}</p> </a>                
-            </div>
-          </div>
-        </div>
-  </div>
+        </nav>
 
-  <div id = "Visualizations">
-    <div class="container-fluid px-0">
-        <select id="selYear" onchange="getYear(this.value)"></select><h3 class = "text-center" id = "season-info">Season Information</h3>
-        <div class="container-fluid" id = "main-graphs">
+<div id="background-here">
+    <!-- Our rows function in containers (grid created). -->
+        <div class="container-fluid" id="currentNews">
+            <!--Normally these medium columns go full wide on small screen sizes-->
             <div class="row">
+            <div class="col-md-3">
+                <div class="box" id ="news">
+                    <p class = "text-center"><a href = "https://www.formula1.com/">Formula 1</a> Featured Article:</p>                  
+                    <a href="{{ formula1.f1_link}}"><p class = "text-center">{{ formula1.f1_title }}</p> </a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="box" id ="news">
+                    <p class = "text-center"><a href = "https://www.formula1.com/">Formula 1</a> Calendar:</p>                  
+                    <a href="{{ formula1.f1_bonus}}"><p class = "text-center">{{ formula1.bonus_title }}</p> </a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="box" id = "news">
+                    <p class = "text-center"><a href = "https://www.espn.com/f1/">ESPN</a> Featured Article:</p>                  
+                    <a href="{{ formula1.espn_link}}"><p class = "text-center">{{ formula1.espn_title }}</p> </a>                
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="box" id = "news">
+                    <p class = "text-center"><a href = "https://www.motorsport.com/f1/news/">Motorsport</a> Featured Article:</p>                  
+                    <a href="{{ formula1.motorsport_link}}"><p class = "text-center">{{ formula1.motorsport_title }}</p> </a>                
+                </div>
+            </div>
+            </div>
+    </div>
 
-                <!-- Demographics DropDown -->
-                <div class="col-sm-12 col-md-3 graph bg-light" id = "driver-dropdown">
-                    <h4>Driver Demographics</h4>
-                        <div class="well" style="min-width: 250px;">
-                            <h5>Driver Name:</h5>
-                            <select id="selDataset" onchange="optionChanged(this.value)"></select>      
-                        </div>
-                        <div class="panel panel-primary" style="min-width: 250px;">
-                            <div class="panel-heading">
+    <div id = "Visualizations">
+        <div class="container-fluid px-0">
+            <select id="selYear" onchange="getYear(this.value)"></select><h3 class = "text-center" id = "season-info">Season Information</h3>
+            <div class="container-fluid" id = "main-graphs">
+                <div class="row">
+
+                    <!-- Demographics DropDown -->
+                    <div class="col-sm-12 col-md-3 graph bg-light" id = "driver-dropdown">
+                        <h4>Driver Demographics</h4>
+                            <div class="well" style="min-width: 250px;">
+                                <h5>Driver Name:</h5>
+                                <select id="selDataset" onchange="optionChanged(this.value)"></select>      
                             </div>
-                            <div id="driver-metadata" class="panel-body">
-                                
-                <!-- metadata here -->
-                            </div>
-                            <div id="wiki_link">
-                                
-                            </div>
-                        </div>  
+                            <div class="panel panel-primary" style="min-width: 250px;">
+                                <div class="panel-heading">
+                                </div>
+                                <div id="driver-metadata" class="panel-body">
+                                    
+                    <!-- metadata here -->
+                                </div>
+                                <div id="wiki_link">
+                                    
+                                </div>
+                            </div>  
+                    </div>
+
+                    <!-- Standings -->
+                    <div class="col-sm-12 col-md-8 graph bg-white" id="driver_standings">
+                    <div id="standings_bar"></div>
+                    </div>
                 </div>
 
-                <!-- Standings -->
-                <div class="col-sm-12 col-md-8 graph bg-white" id="driver_standings">
-                   <div id="standings_bar"></div>
+                    <!-- Circuit Map -->
+                <div class = "row" id = "leaflet-section">
+                    <div class = "col-sm-10 map-graph bg-white">
+                        <div id="map" class = "leaflet-container leaflet-fade-anim leaflet-grab leaflet-touch-drag" tabindex = "0" style = "position:relative;"></div>
+                    </div>
                 </div>
-            </div>
+            
+                    <!-- Names of Circuits with race number -->
+                <div class = "row justify-content-center">
+                    <div class="col-sm-12 col-md-4 graph bg-light">
+                        <p id="p-circuits"></p>
+                        <div id="circuit-list"></div>
+                    </div>               
 
-                <!-- Circuit Map -->
-            <div class = "row" id = "leaflet-section">
-                <div class = "col-sm-10 map-graph bg-white">
-                    <div id="map" class = "leaflet-container leaflet-fade-anim leaflet-grab leaflet-touch-drag" tabindex = "0" style = "position:relative;"></div>
-                </div>
-            </div>
-           
-                <!-- Names of Circuits with race number -->
-            <div class = "row justify-content-center">
-                <div class="col-sm-12 col-md-4 graph bg-light">
-                    <p id="p-circuits"></p>
-                    <div id="circuit-list"></div>
-                </div>               
+                    <div class="col-sm-12 col-md-6 graph bg-white">
+                        <div id="speed_bar"></div>                        
+                    </div>
 
-                <div class="col-sm-12 col-md-6 graph bg-white">
-                    <div id="speed_bar"></div>                        
-                </div>
+                    <div class="col-sm-12 col-md-5 graph bg-white">
+                        <div id="pit_bar"></div>
+                    </div>
 
-                <div class="col-sm-12 col-md-5 graph bg-white">
-                    <div id="pit_bar"></div>
+                    <div class="col-sm-12 col-md-5 graph bg-white">
+                        <div id="lap_bar"></div>
+                    </div>
                 </div>
 
-                <div class="col-sm-12 col-md-5 graph bg-white">
-                    <div id="lap_bar"></div>
-                </div>
-            </div>
-
-        </div> 
-        <!-- End of Container -->
-
-        <!-- <div class="container" id = "leaflet-section">
-            <div class = "row">
-                <div class = "col-sm-11 map-graph bg-white">
-                    <div id="map" class = "leaflet-container leaflet-fade-anim leaflet-grab leaflet-touch-drag" tabindex = "0" style = "position:relative;"></div>
-                </div>
-            </div>
-        </div> -->
-
-        
+            </div> 
+            <!-- End of Container -->
+</div>        
         <!-- Leaflet JS -->
         <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
             integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
@@ -176,9 +160,6 @@
         <script type="text/javascript" src="../static/js/logic.js"></script>
         <script src="../static/js/app.js"></script>
 
-        <!-- require.js -->
-        <!-- <script type = "module" data-main = "../static/js/app.js" src = "../static/js/require.js" ></script> -->
-        <!-- <script data-main = "../static/js/app.js" src = "../static/js/require.js"></script> -->
         <!-- Plot.ly -->
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
