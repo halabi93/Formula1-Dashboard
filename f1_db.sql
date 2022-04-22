@@ -1,18 +1,4 @@
 ﻿
--- Exported from QuickDBD: https://www.quickdatabasediagrams.com/
--- Link to schema: https://app.quickdatabasediagrams.com/#/d/oFXIk0
--- NOTE! If you have used non-SQL datatypes in your design, you will have to change these here.
-
--- Select * FROM circuits
--- Select * FROM constructors
--- Select * FROM drivers
--- Select * FROM lap_times
--- Select * FROM pit_stops
--- Select * FROM qualifying
--- Select * FROM races
--- Select * FROM results
--- Select * FROM status
-
 DROP TABLE IF EXISTS constructors CASCADE;
 CREATE TABLE "constructors" (
     "constructor_id" int   NOT NULL,
@@ -161,77 +147,79 @@ FROM pit_stops
 JOIN races 
 ON pit_stops.race_id=races.race_id 
 GROUP BY (pit_stops.race_id)
-ORDER BY (pit_stops.race_id)
+ORDER BY (pit_stops.race_id);
 
 -- Can be used with the above table
 CREATE TABLE pit_stop_avg_per_driver AS
 SELECT p.race_id, p.driver_id, AVG(p.duration_milli) AS avg_pit_time
 FROM pit_stops AS p
 GROUP BY (p.race_id, p.driver_id)
-ORDER BY (avg_pit_time) DESC
+ORDER BY (avg_pit_time) DESC;
 
 --Can be used to plot lap time average for each race throughout a season and compared with that of the individual driver throughout that season
 CREATE TABLE lap_time_avg AS
 SELECT l.race_id, AVG(l.time_milli) AS avg_lap_time
 FROM lap_times AS l 
 GROUP BY (l.race_id)
-ORDER BY (avg_lap_time) DESC
+ORDER BY (avg_lap_time) DESC;
 
 -- Can be used with the above table
 CREATE TABLE lap_time_avg_per_driver AS
 SELECT l.race_id, l.driver_id, AVG(l.time_milli) AS avg_lap_time
 FROM lap_times AS l 
 GROUP BY (l.race_id, l.driver_id)
-ORDER BY (avg_lap_time) DESC
+ORDER BY (avg_lap_time) DESC;
 
 --Can be used to plot fastest lap average speed for each race throughout a season and compared with that of the individual driver throughout that season
 CREATE TABLE lap_fastest_time_avg AS
 SELECT r.race_id, AVG(r.fastest_lap_speed) AS avg_fastest_lap
 FROM results AS r
 GROUP BY (r.race_id)
-ORDER BY (avg_fastest_lap)
+ORDER BY (avg_fastest_lap);
 
 -- Can be used with the above table
 CREATE TABLE fastest_lap_speed_per_driver AS
 SELECT r.race_id, r.driver_id, AVG(r.fastest_lap_speed) AS fastest_lap_time
 FROM results AS r
 GROUP BY (r.race_id, r.driver_id)
-ORDER BY (fastest_lap_time) DESC
+ORDER BY (fastest_lap_time) DESC;
 
 -- Used to obtain top 10 drivers of all-time
 CREATE TABLE all_races (
 "Circuit" TEXT,
 	"1" TEXT
-)
+);
+
+SELECT * FROM all_races
 -- Used to obtain constructors with most wins
 CREATE TABLE constructor_standings (
 	race_id int,
 	constructor_id int,
 	points float
-)
+);
 
 -- Calaculated who had the most points per year
-DROP TABLE IF EXISTS max_points_per_year
+DROP TABLE IF EXISTS max_points_per_year CASCADE;
 CREATE TABLE max_points_per_year AS
 SELECT r.year, MAX(c.points)
 FROM constructor_standings  AS c
 JOIN races AS r ON r.race_id=c.race_id
 GROUP BY year
-ORDER BY year DESC
+ORDER BY year DESC;
 
 -- Calculated which team had how many points in each round. This was used with the above table to create the below table
-DROP TABLE IF EXISTS team_points_per_round
+DROP TABLE IF EXISTS team_points_per_round CASCADE;
 CREATE TABLE team_points_per_round AS
 SELECT c.points, r.year, r.round, con.name FROM constructor_standings AS c
 JOIN races AS r on r.race_id=c.race_id
-JOIN constructors AS con on con.constructor_id=c.constructor_id
+JOIN constructors AS con on con.constructor_id=c.constructor_id;
 
 -- The below table shows the names of the teams that won since 1958
-DROP TABLE IF EXISTS year_champs
+DROP TABLE IF EXISTS year_champs CASCADE;
 CREATE TABLE year_champs AS
 SELECT t.name
 FROM max_points_per_year AS m
 JOIN team_points_per_round AS t
 ON t.points=m.max AND t.year=m.year 
 GROUP BY m.year, m.max, t.name
-ORDER BY name
+ORDER BY name;
