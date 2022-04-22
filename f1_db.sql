@@ -198,104 +198,40 @@ FROM results AS r
 GROUP BY (r.race_id, r.driver_id)
 ORDER BY (fastest_lap_time) DESC
 
+-- Used to obtain top 10 drivers of all-time
 CREATE TABLE all_races (
 "Circuit" TEXT,
 	"1" TEXT
 )
---------------------------------------
-SELECT * FROM all_races
+-- Used to obtain constructors with most wins
+CREATE TABLE constructor_standings (
+	race_id int,
+	constructor_id int,
+	points float
+)
 
-SELECT "1", COUNT ("1") AS "Total_Wins" FROM "all_races" 
-GROUP BY "1"
-ORDER BY "Total_Wins" DESC
+-- Calaculated who had the most points per year
+DROP TABLE IF EXISTS max_points_per_year
+CREATE TABLE max_points_per_year AS
+SELECT r.year, MAX(c.points)
+FROM constructor_standings  AS c
+JOIN races AS r ON r.race_id=c.race_id
+GROUP BY year
+ORDER BY year DESC
 
-SELECT * FROM pit_stops
+-- Calculated which team had how many points in each round. This was used with the above table to create the below table
+DROP TABLE IF EXISTS team_points_per_round
+CREATE TABLE team_points_per_round AS
+SELECT c.points, r.year, r.round, con.name FROM constructor_standings AS c
+JOIN races AS r on r.race_id=c.race_id
+JOIN constructors AS con on con.constructor_id=c.constructor_id
 
-SELECT * FROM drivers WHERE driver_id=830
-
-SELECT * FROM races WHERE race_id=847
-
---------------------------------------
-
-SELECT l.race_id, l.avg_fastest_lap, r.year, r.round, r.name
-FROM lap_fastest_time_avg AS l
-JOIN races AS r ON r.race_id=l.race_id
-ORDER BY (r.year,r.round)
-
--------------------------------------
-
-
-
-SELECT * FROM lap_time_avg_per_driver
-
-SELECT p.avg_pit_duration, r.race_id, r.year, r.round
-FROM pit_stop_duration AS p
-JOIN races AS r ON r.race_id=p.race_id
-ORDER BY p.avg_pit_duration
-
-
-SELECT * FROM pit_stops
-WHERE race_id=967
-
-SELECT circuits.circuit_name, COUNT(races.circuit_id) FROM races
-INNER JOIN circuits ON races.circuit_id=circuits.circuit_id
-GROUP BY races.circuit_id, circuits.circuit_name
-ORDER BY COUNT(races.circuit_id) DESC
-
-
-
-select races.circuit_id, count(races.circuit_id) as circuit_count
-from races
-group by races.circuit_id
- JOIN circuits ON races.circuit_id=circuits.circuit_id
-order by count(circuit_id) DESC
-
-select * FROM races
-
-select COUNT(*) from pit_stops
-
-SELECT * FROM races where race_id=841
-SELECT * FROM pit_stops where race_id=841
-
-SELECT pit_stops.race_id, pit_stops.driver_id, pit_stops.duration_milli, races.year, races.round, races.circuit_id
-FROM pit_stops 
-JOIN races 
-ON pit_stops.race_id=races.race_id 
-WHERE pit_stops.race_id=841
-
-
-
-SELECT races.race_id, races.year, races.round, races.circuit_id
-FROM races 
-
-
-
-
-
-
-SELECT pit_stops.race_id, AVG(pit_stops.duration_milli) AS avg_pit_duration
-FROM pit_stops 
-JOIN races 
-ON pit_stops.race_id=races.race_id 
-GROUP BY (pit_stops.race_id)
-JOIN pit_stops
-on pit_stops.race_id=races.race_id
-ORDER BY (pit_stops.race_id)
-
-
-
-SELECT * FROM races WHERE race_id=1
-
-SELECT * FROM results
-
-SELECT * FROM lap_time_avg WHERE race_id=1
-
-SELECT l.race_id, r.year, r.round, AVG(l.time_milli) AS avg_lap_time
-FROM lap_times AS l 
-JOIN races AS r 
-ON r.race_id=l.race_id
-WHERE r.year=2009
-GROUP BY (l.race_id, r.year, r.round)
-ORDER BY (l.race_id)
-
-
+-- The below table shows the names of the teams that won since 1958
+DROP TABLE IF EXISTS year_champs
+CREATE TABLE year_champs AS
+SELECT t.name
+FROM max_points_per_year AS m
+JOIN team_points_per_round AS t
+ON t.points=m.max AND t.year=m.year 
+GROUP BY m.year, m.max, t.name
+ORDER BY name
