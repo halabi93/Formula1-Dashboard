@@ -7,7 +7,6 @@ let yearMenu = d3.select("#selYear");
 // The earliest year in the dataset, based on researching the API
 let firstDataYear = Number(1950);
 
-console.log("before init");
 
 // FOR REFERENCE:
 // year = document.getElementById('selYear').value;
@@ -15,7 +14,6 @@ console.log("before init");
 
 //This function runs when the page is loaded, fills out the year drop down, and makes function calls to fill out drop downs and run visuals
 function init() {
-  console.log("init");
 
   // Set up the year selection
   let yearList = [];
@@ -42,7 +40,6 @@ function init() {
 
 // This function finds the driver list for a single given year
 function driverList(year){
-  console.log("driverList");
 
   // Use the year to create the query
   queryUrl = queryAPI + year + "/" + queryDriver;
@@ -131,20 +128,16 @@ function demographics(userInput) {
 
 // This function creates a bar chart with the Driver Standings for the user chosen year
 function driverStandings(year){
-  console.log("driverStandings")
 
   standingsQuery = queryAPI + year + "/driverStandings.json";
 
   d3.json(standingsQuery).then(function (data) {
-    // console.log(data);
+
     let driverPositions = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
-    // console.log(driverPositions);
-    // console.log(driverPositions[0].points);
   
     let seasonPoints = [];
     let fullName = [];
     let constructor = [];
-    // console.log(seasonPoints);
 
     for(let d in driverPositions){
       position = Number(d) + 1;
@@ -196,12 +189,8 @@ function driverStandings(year){
   })
 };
 
-// For the div with the circuit names
-
-
 // Graphs dependent on queries to our own API
 function queryGraphs (userInput) {
-  console.log("query graphs");
 
   circuit_names = [];
 
@@ -511,7 +500,7 @@ function queryGraphs (userInput) {
         document.getElementById("p-circuits").innerHTML = "The following list can by used to match race numbers with the corresponding circuit for the next three graphs:"
       }
       else{
-        document.getElementById("p-circuits").innerHTML = "The following list shows where races took place"
+        document.getElementById("p-circuits").innerHTML = `Race locations for ${year} are below:`
       }
       for (let i = (circuit_names.length - 1); i>= 0; i--){
         circuit_node = document.getElementById('circuit-list');
@@ -524,7 +513,6 @@ function queryGraphs (userInput) {
 
 // This function runs when the user changes the year - note: no changes are made to "value" in this function
 function getYear(value){
-  console.log("get year");
 
   // Create header
   document.getElementById('season-info').innerHTML = `${value} Season Information`;
@@ -548,7 +536,6 @@ function getYear(value){
 
 // This function is called when a dropdown menu item is selected - note: no changes are made to "value" in this function
 function optionChanged(value) {
-  console.log("option changed")
 
   //empty the "Demographic Info" box
   let metaBox = d3.select("#driver-metadata");

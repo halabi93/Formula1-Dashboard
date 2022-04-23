@@ -4,7 +4,6 @@ html {
   height: 100%;
   margin:0;
   padding:0;
-  /* background-color: #121212; */
 }
 
 .row{
@@ -17,15 +16,13 @@ html {
 }
 
 #main-graphs {
-  /* background-color:#121212; */
   align-items: center;  
 }
 
 #map{
   height: 100%;
   width: auto;
-  /* border: 2px solid black; */
-  /* margin: 0%; */
+
   padding: 0;
   margin-left: auto;
   margin-right: auto;
@@ -40,6 +37,7 @@ html {
   margin-right: auto;
   margin-bottom: 2%;
   padding: 0;
+  border-radius: .5rem;
 }
 
 .navbar-brand{
@@ -53,9 +51,7 @@ html {
 }
 
 
-
 #Visualizations{
-  /* margin: 2%; */
   padding-top: 1rem;
   padding-bottom: 1rem;   
 }
@@ -70,7 +66,6 @@ html {
 #driver_standings {
   margin-top: 2%;
   min-height: 375pt;
-  /* min-width: 350pt; */
 }
 
 #driver-dropdown{
@@ -89,18 +84,11 @@ h3 {
 
 
 #circuit-item {
-  /* color: blue; */
   margin: 0;
   padding: 0.1em;
 }
 
-#leaflet-section{
-  /* background-color:#121212;   */
-}
 
-#hist-graphs{
-  /* background-color:#121212;   */
-}
 #top-drivers,
 #top-tracks,
 #top-constructors{
@@ -109,7 +97,6 @@ h3 {
 
 #season-info{
   color: white;
-  /* background-color: #121212; */
 }
 
 #background-here{
@@ -118,11 +105,18 @@ h3 {
 
 #news{
   background-color: white;
-  /* color: #121212;   */
   border: 1px solid #121212;
   min-height: 9rem;
   padding: 5px;
   margin: 2%; 
   font-weight: 800;
   border-radius: .5rem;
+}
+
+#selYear{
+  margin-left: 2%;
+}
+
+#p-circuits{
+  border-bottom: 1px solid #121212;
 }

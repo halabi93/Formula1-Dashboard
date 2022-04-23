@@ -42,7 +42,7 @@ let myMap = L.map("map", {
   center: [
     25, 0
   ],
-  zoom: 2,
+  zoom: 1.5,
   scrollWheelZoom: false,
   layers: [googleHybrid]
 });
@@ -50,10 +50,7 @@ let myMap = L.map("map", {
 let layerControl = L.control.layers(baseMaps).addTo(myMap);
 
 function getCircuitURL(year) {
-  console.log("get circuit url")
     circuitURL = (mapAPI + year + queryCircuit);
-
-    console.log(circuitURL);
 
     return circuitURL;
 };
@@ -69,7 +66,6 @@ function createMarkers(year){
   d3.json(circuitURL).then(function (data) {
 
     circuits = data.MRData.CircuitTable.Circuits
-    console.log(circuits[0]);
 
     circuitIdList = []
     circuitMarkers = []
@@ -83,6 +79,7 @@ function createMarkers(year){
           L.marker([circuit.Location.lat, circuit.Location.long]).bindPopup(`<h6>${circuit.circuitName}:<h6>${circuit.Location.locality}, ${circuit.Location.country}`)
         )};
     };
+
       let circuitLayer = L.layerGroup(circuitMarkers);
       layerControl.addOverlay(circuitLayer, `${year} Circuits`);
       circuitLayer.addTo(myMap);
@@ -91,30 +88,5 @@ function createMarkers(year){
   // Push layer to the map
   layer_list.push(`${year} Circuits`);
 
-  // Check and uncheck correct boxes
-  checkBoxes(year);
-
   }; // End of if statement
-};
-
-
-function checkBoxes(year){
-  console.log("checkboxes fcn");
-  var ele=document.getElementsByTagName('input');  
-  console.log(ele);
-  list_o_checks = [];
-  
-  for(var i=0; i<ele.length; i++){  
-    if(ele[i].type=='checkbox'){  
-        list_o_checks.push(i)
-      };  
-  };
-
-console.log(list_o_checks);
-
-  // for(var i=0; i<ele.length; i++){  
-  //     if(ele[i].type=='checkbox'){  
-  //         ele[i].checked=true;  
-  //     };
-  // };
 };
