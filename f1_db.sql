@@ -184,13 +184,6 @@ FROM results AS r
 GROUP BY (r.race_id, r.driver_id)
 ORDER BY (fastest_lap_time) DESC;
 
--- Used to obtain top 10 drivers of all-time
-CREATE TABLE all_races (
-"Circuit" TEXT,
-	"1" TEXT
-);
-
-SELECT * FROM all_races
 -- Used to obtain constructors with most wins
 CREATE TABLE constructor_standings (
 	race_id int,
