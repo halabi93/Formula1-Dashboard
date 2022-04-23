@@ -57,6 +57,9 @@ function getCircuitURL(year) {
 
 let layer_list = [];
 
+//Set initial marker color
+let marker_color = "FF1801"
+
 function createMarkers(year){
 
   if (!layer_list.includes(`${year} Circuits`)){
@@ -76,7 +79,14 @@ function createMarkers(year){
         circuitIdList.push(circuit.circuitId);
         // Leaflet uses lat-lon
         circuitMarkers.push(
-          L.marker([circuit.Location.lat, circuit.Location.long]).bindPopup(`<h6>${circuit.circuitName}:<h6>${circuit.Location.locality}, ${circuit.Location.country}`)
+          L.circleMarker([circuit.Location.lat, circuit.Location.long], {
+            stroke: true,
+            weight: 1,
+            fillOpacity: 1,
+            color: "white",
+            fillColor: marker_color,
+            radius: 6
+          }).bindPopup(`<h6>${circuit.circuitName}:<h6>${circuit.Location.locality}, ${circuit.Location.country}`)
         )};
     };
 
@@ -87,6 +97,14 @@ function createMarkers(year){
 
   // Push layer to the map
   layer_list.push(`${year} Circuits`);
+
+  // Use chroma to darken the marker color for the next user selection - inside the if statement
+  marker_color = chroma(marker_color).darken().hex();
+
+  // Once black, start over on grey scale
+  if (marker_color == "#000000"){
+    marker_color = "#FFFFFF";
+  }
 
   }; // End of if statement
 };
