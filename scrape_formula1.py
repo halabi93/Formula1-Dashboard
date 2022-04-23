@@ -32,9 +32,12 @@ def scrape_info():
     browser.visit(url)
     html = browser.html
     soup = bs(html, 'html.parser')
-    espn_title = soup.find('h1', class_='contentItem__title--story').text
-    results_link = soup.find('section', class_='contentFeed').find('section').find('section').find('a')['href']
-    espn_link = link_prefix + results_link
+    # espn_title = soup.find('h1', class_='contentItem__title--story').text
+    # results_link = soup.find('section', class_='contentFeed').find('section').find('section').find('a')['href']
+    # espn_link = link_prefix + results_link
+    espn_title  = "Race is live"
+    espn_link = "https://www.espn.com/f1/"
+
 
     # Article from motorsport.com dedicated F1 page
     url = "https://www.motorsport.com/f1/news/"
