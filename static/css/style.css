@@ -103,10 +103,16 @@ h3 {
   background-color:#121212; 
 }
 
+#table{
+  display: table;
+  display: flex;
+  width: 100%;
+}
+
 #news{
   background-color: white;
   border: 1px solid #121212;
-  min-height: 9rem;
+  height: 100%;
   padding: 5px;
   margin: 2%; 
   font-weight: 800;
@@ -119,4 +125,10 @@ h3 {
 
 #p-circuits{
   border-bottom: 1px solid #121212;
+}
+
+#speed_bar,
+#pit_bar,
+#lap_bar{
+  text-align: center;
 }

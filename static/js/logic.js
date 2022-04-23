@@ -40,7 +40,7 @@ let overlayMaps = {
 // Create the map the shows at page start-up 
 let myMap = L.map("map", {
   center: [
-    25, 0
+    15, 0
   ],
   zoom: 1.5,
   scrollWheelZoom: false,
@@ -85,7 +85,7 @@ function createMarkers(year){
             fillOpacity: 1,
             color: "white",
             fillColor: marker_color,
-            radius: 6
+            radius: 6.5
           }).bindPopup(`<h6>${circuit.circuitName}:<h6>${circuit.Location.locality}, ${circuit.Location.country}`)
         )};
     };

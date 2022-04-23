@@ -185,7 +185,7 @@ function driverStandings(year){
 
     let barConfig = {responsive: true}
 
-    Plotly.newPlot("standings_bar", barChart, barLayout);
+    Plotly.newPlot("standings_bar", barChart, barLayout, barConfig);
   })
 };
 
